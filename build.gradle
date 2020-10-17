@@ -34,6 +34,11 @@ subprojects {
         runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+        implementation project(':common')
+
+        implementation 'org.apache.pulsar:pulsar-client:2.6.1'
+        implementation 'io.nats:jnats:2.8.0'
+
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'io.projectreactor:reactor-test'
     }
