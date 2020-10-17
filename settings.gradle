@@ -12,5 +12,6 @@ pluginManagement {
 	}
 }
 rootProject.name = 'benchmark-mq'
-include 'producermq'
+include 'manufacturer'
+include 'patron'
 
