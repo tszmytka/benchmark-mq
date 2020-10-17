@@ -12,5 +12,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - volume-grafana-quote-system:/var/lib/grafana
+      - volume-grafana-benchmark-mq:/var/lib/grafana
       - /benchmark-mq/provision/grafana/etc/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+
+volumes:
+  volume-grafana-benchmark-mq:
