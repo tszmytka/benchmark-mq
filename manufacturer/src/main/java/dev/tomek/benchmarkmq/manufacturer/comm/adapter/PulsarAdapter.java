@@ -1,7 +1,6 @@
 package dev.tomek.benchmarkmq.manufacturer.comm.adapter;
 
 import dev.tomek.benchmarkmq.common.Airplane;
-import dev.tomek.benchmarkmq.common.Profiles;
 import dev.tomek.benchmarkmq.common.Topic;
 import lombok.RequiredArgsConstructor;
 import org.apache.pulsar.client.api.Producer;
