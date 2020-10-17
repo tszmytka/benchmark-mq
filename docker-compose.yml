@@ -1,13 +1,13 @@
 version: "3.6"
 services:
-  quote-system.prometheus:
+  prometheus.benchmark-mq:
     image: prom/prometheus:v2.17.1
     ports:
       - "9090:9090"
     volumes:
       - /benchmark-mq/provision/prometheus/etc/prometheus:/etc/prometheus
 
-  quote-system.grafana:
+  grafana.benchmark-mq:
     image: grafana/grafana:7.1.5
     ports:
       - "3000:3000"
