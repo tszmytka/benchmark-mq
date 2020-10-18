@@ -17,7 +17,7 @@ import static dev.tomek.benchmarkmq.common.Airplane.Maker.NORTH_AMERICAN_AVIATIO
 @Component
 @RequiredArgsConstructor
 public class AirplaneManufacturer implements CommandLineRunner {
-    private static final int MSG_PER_SEC = 500;
+    private static final int MSG_PER_SEC = 2;
     private final Messenger messenger;
 
     @Override

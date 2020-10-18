@@ -24,9 +24,8 @@ public class NatsAdapter implements CommAdapter {
     public void send(Airplane airplane, Topic topic) {
         try {
             connection.publish(topic.toString(), objectMapper.writeValueAsBytes(airplane));
-        } catch (JsonProcessingException e) {
-            LOGGER.error("Could not serialize", e);
+        } catch (Exception e) {
+            LOGGER.error("Could not send message", e);
         }
-
     }
 }
