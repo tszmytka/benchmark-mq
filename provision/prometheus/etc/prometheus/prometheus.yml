@@ -8,6 +8,12 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: [
+          'host.docker.internal:9001', # Docker Desktop
+          '172.28.128.1:9001' # Docker Toolbox
+      ]
+        labels:
+          group: 'Benchmark-mq Manufacturer'
+      - targets: [
           'host.docker.internal:9002', # Docker Desktop
           '172.28.128.1:9002' # Docker Toolbox
       ]

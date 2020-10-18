@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Patron
+server:
+  port: 9002
+---
+server:
+  port: 9003
+spring:
+  config:
+    activate:
+      on-profile: different-profile
