@@ -28,7 +28,7 @@ public class NatsConfig {
     }
 
     @Bean
-    public Subscription subscriptionRefinitiv(Dispatcher dispatcher, NatsConsumer natsConsumer) {
+    public Subscription subscriptionAirplanes(Dispatcher dispatcher, NatsConsumer natsConsumer) {
         return dispatcher.subscribe(Topic.AIRPLANES.toString(), natsConsumer);
     }
 }
