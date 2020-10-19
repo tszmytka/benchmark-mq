@@ -9,4 +9,5 @@ public class Profiles {
     public static final String COMM_PULSAR = "comm_pulsar";
     public static final String COMM_NATS = "comm_nats";
     public static final String COMM_REDIS = "comm_redis";
+    public static final String COMM_KAFKA = "comm_kafka";
 }

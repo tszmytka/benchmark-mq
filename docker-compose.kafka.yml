@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  kafka:
+    build: provision/kafka
+    ports:
+      - "9092:9092"
+      - "9999:9999" # jmx
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.rmi.port=9999 -Djava.rmi.server.hostname=kafka.kafka
+      -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+    command: --override zookeeper.connect=zookeeper:2181 --override advertised.listeners=PLAINTEXT://kafka:9092
+
+  zookeeper:
+    image: zookeeper:3.6
+    environment:
+      JVMFLAGS: "-Dcom.sun.management.jmxremote.port=8889 -Dcom.sun.management.jmxremote.rmi.port=8889 -Djava.rmi.server.hostname=zookeeper.kafka
+      -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+    ports:
+      - "8889:8889" # jmx
