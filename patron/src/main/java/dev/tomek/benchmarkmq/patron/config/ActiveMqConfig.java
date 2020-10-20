@@ -1,4 +1,4 @@
-package dev.tomek.benchmarkmq.manufacturer.config;
+package dev.tomek.benchmarkmq.patron.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;

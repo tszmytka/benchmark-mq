@@ -1,5 +1,6 @@
 package dev.tomek.benchmarkmq.manufacturer.comm.adapter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.tomek.benchmarkmq.common.Airplane;
 import dev.tomek.benchmarkmq.common.Topic;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,12 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_ACTIVEMQ;
 @RequiredArgsConstructor
 public class ActiveMqAdapter implements CommAdapter {
     private final JmsTemplate jmsTemplate;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void send(Airplane airplane, Topic topic) {
         try {
-            jmsTemplate.convertAndSend(topic.toString(), "airplane");
+            jmsTemplate.convertAndSend(topic.toString(), objectMapper.writeValueAsBytes(airplane));
         } catch (Exception e) {
             LOGGER.error("Cannot send message", e);
         }
