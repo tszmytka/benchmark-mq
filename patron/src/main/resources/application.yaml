@@ -3,10 +3,18 @@ spring:
     name: Patron
 server:
   port: 9002
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - prometheus
 ---
-server:
-  port: 9003
 spring:
   config:
     activate:
       on-profile: different-profile
+server:
+  port: 9003
