@@ -35,6 +35,7 @@ subprojects {
         implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
         implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+
     }
 
     if (!project.name.endsWith("common")) {
@@ -52,6 +53,7 @@ subprojects {
             implementation 'org.springframework.boot:spring-boot-starter-data-redis'
             implementation 'org.apache.kafka:kafka-clients:2.5.0'
             implementation 'org.springframework.amqp:spring-rabbit'
+            implementation 'org.springframework.boot:spring-boot-starter-activemq'
 
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
             testImplementation 'io.projectreactor:reactor-test'
