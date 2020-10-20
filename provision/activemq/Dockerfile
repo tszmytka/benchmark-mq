@@ -1,23 +1,20 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:11-jre-slim
 
-ENV ACTIVEMQ_VERSION 5.16.0
-ENV ACTIVEMQ_WORKDIR /app
+COPY . /workdir
+WORKDIR /workdir
 
-RUN mkdir -p $ACTIVEMQ_WORKDIR
+ARG APP_NAME
+ARG APP_VER
 
-COPY activemq/apache-activemq-5.15.11-bin.tar.gz .
+ENV APP_NAME=${APP_NAME:-activemq} \
+    APP_VER=${APP_VER:-5.16.0}
 
-RUN tar -xzf apache-activemq-5.15.11-bin.tar.gz -C $ACTIVEMQ_WORKDIR
+RUN apt-get update \
+    && apt-get install -y wget \
+    && ./install-activemq.sh
 
-RUN ln -s $ACTIVEMQ_WORKDIR/apache-activemq-$ACTIVEMQ_VERSION \$ACTIVEMQ_WORKDIR/activemq
+WORKDIR /etc/$APP_NAME
 
-COPY conf/activemq.xml $ACTIVEMQ_WORKDIR/activemq/conf
-
-COPY conf/db.properties $ACTIVEMQ_WORKDIR/activemq/conf/db.properties
-
-COPY lib $ACTIVEMQ_WORKDIR/activemq/lib
-
-WORKDIR $ACTIVEMQ_WORKDIR/activemq
 EXPOSE 8161
 EXPOSE 61616
 CMD ["/bin/sh", "-c", "bin/activemq console"]

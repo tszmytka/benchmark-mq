@@ -15,11 +15,12 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_ACTIVEMQ;
 @Profile(COMM_ACTIVEMQ)
 public class ActiveMqConfig {
 
+    @Bean
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory(new ActiveMQConnectionFactory(""));
+        return new CachingConnectionFactory(new ActiveMQConnectionFactory("tcp://dockerhost:61616"));
     }
 
-    @Bean
+//    @Bean
     public JmsTemplate jmsTemplate() {
         return new JmsTemplate();
     }
