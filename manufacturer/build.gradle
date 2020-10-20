@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'io.github.resilience4j:resilience4j-ratelimiter:1.6.1'
+}
