@@ -36,7 +36,8 @@ public class AirplaneManufacturer implements CommandLineRunner {
         LOGGER.info("Starting Airplane manufacturer");
         int i = 0;
 
-        setRateLimitAutoIncrease(100);
+        rateLimit = 500;
+        setRateLimitAutoIncrease(0);
 
         //noinspection InfiniteLoopStatement
         while (true) {
@@ -57,5 +58,6 @@ public class AirplaneManufacturer implements CommandLineRunner {
     private void increaseLimit() {
         rateLimit += rateLimitAutoIncrease;
         rateLimiter.changeLimitForPeriod(rateLimit);
+        LOGGER.info("Setting rate limit to: " + rateLimit);
     }
 }
