@@ -87,7 +87,12 @@
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
-            "seriesOverrides": [],
+            "seriesOverrides": [
+                {
+                    "alias": "/Message rate/",
+                    "yaxis": 2
+                }
+            ],
             "spaceLength": 10,
             "stack": false,
             "steppedLine": false,
@@ -96,8 +101,14 @@
                     "expr": "rate(communication_requests_received_seconds_sum[1m]) / rate(communication_requests_received_seconds_count[1m])",
                     "hide": false,
                     "interval": "",
-                    "legendFormat": "Mean latency {{group}}",
+                    "legendFormat": "Message mean latency {{group}}",
                     "refId": "A"
+                },
+                {
+                    "expr": "rate(communication_requests_received_seconds_count[1m])",
+                    "interval": "",
+                    "legendFormat": "Message rate {{group}}",
+                    "refId": "B"
                 }
             ],
             "thresholds": [],
@@ -120,7 +131,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:64",
                     "format": "s",
                     "label": null,
                     "logBase": 1,
@@ -129,8 +139,7 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:65",
-                    "format": "short",
+                    "format": "rps",
                     "label": null,
                     "logBase": 1,
                     "max": null,
@@ -152,7 +161,7 @@
         "list": []
     },
     "time": {
-        "from": "now-5m",
+        "from": "now-15m",
         "to": "now"
     },
     "timepicker": {},
