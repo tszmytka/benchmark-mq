@@ -81,33 +81,33 @@ public class AirplaneManufacturer implements CommandLineRunner {
 
     private static class SmoothProducingStrategy {
         private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
-        private int rateLimit;
-        private final int rateLimitBump;
+        private int limitPerSecond;
+        private final int limitBump;
         private Runnable production;
         private Disposable subscription;
 
-        private SmoothProducingStrategy(int rateLimit, int rateLimitBump) {
-            this.rateLimit = rateLimit;
-            this.rateLimitBump = rateLimitBump;
+        private SmoothProducingStrategy(int limitPerSecond, int limitBump) {
+            this.limitPerSecond = limitPerSecond;
+            this.limitBump = limitBump;
         }
 
         public void startProducing(Runnable production) {
             this.production = production;
-            limitProduction(rateLimit);
+            limitProduction(limitPerSecond);
             EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
         }
 
         private void increaseLimit() {
-            rateLimit += rateLimitBump;
-            LOGGER.info("Setting rate limit to: " + rateLimit);
-            limitProduction(rateLimit);
+            limitPerSecond += limitBump;
+            LOGGER.info("Setting rate limit to: " + limitPerSecond);
+            limitProduction(limitPerSecond);
         }
 
-        private void limitProduction(int limit) {
+        private void limitProduction(int limitPerSecond) {
             if (subscription != null) {
                 subscription.dispose();
             }
-            subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limit))
+            subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limitPerSecond))
                 .subscribe(l -> production.run());
         }
     }
