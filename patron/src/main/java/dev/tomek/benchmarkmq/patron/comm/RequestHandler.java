@@ -17,6 +17,6 @@ public class RequestHandler {
     public void handleRequest(Airplane airplane) {
         final Duration duration = Duration.ofNanos(System.nanoTime() - airplane.dispatchNanos());
         requestTimer.record(duration);
-        LOGGER.info("Received " + airplane + " micros: " + duration.toNanos() / 1000);
+        LOGGER.trace("Received " + airplane + " micros: " + duration.toNanos() / 1000);
     }
 }

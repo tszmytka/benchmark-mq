@@ -15,6 +15,7 @@ public class ManufacturerConfig {
         final RateLimiterConfig rlConfig = RateLimiterConfig.custom()
             .limitForPeriod(1)
             .limitRefreshPeriod(Duration.ofSeconds(1))
+            .timeoutDuration(Duration.ofSeconds(1))
             .build();
         return RateLimiterRegistry.ofDefaults().rateLimiter("rl0", rlConfig);
     }

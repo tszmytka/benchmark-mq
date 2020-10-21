@@ -37,10 +37,13 @@ public class AirplaneManufacturer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         LOGGER.info("Starting Airplane manufacturer");
-        int i = 0;
+        final SmoothProducingStrategy producingStrategy = new SmoothProducingStrategy(100, 10);
+        producingStrategy.startProducing(() -> messenger.send(new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()), Topic.AIRPLANES));
 
-        rateLimit = 100;
-        setRateLimitAutoIncrease(10);
+
+//        int i = 0;
+//        rateLimit = 100;
+//        setRateLimitAutoIncrease(10);
 
         //noinspection InfiniteLoopStatement
 /*        while (true) {
@@ -48,10 +51,10 @@ public class AirplaneManufacturer implements CommandLineRunner {
             rateLimiter.executeRunnable(() -> messenger.send(new Airplane(proto.maker(), proto.id(), System.nanoTime()), Topic.AIRPLANES));
             i = (i + 1) % PROTO_AIRPLANES.length;
         }*/
-        restartProduction();
+//        restartProduction();
     }
 
-    private void setRateLimitAutoIncrease(int rateLimitAutoIncrease) {
+/*    private void setRateLimitAutoIncrease(int rateLimitAutoIncrease) {
         this.rateLimitAutoIncrease = rateLimitAutoIncrease;
         if (scheduledExecutor == null || scheduledExecutor.isShutdown()) {
             scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -61,7 +64,7 @@ public class AirplaneManufacturer implements CommandLineRunner {
 
     private void increaseLimit() {
         rateLimit += rateLimitAutoIncrease;
-//        rateLimiter.changeLimitForPeriod(rateLimit);
+        rateLimiter.changeLimitForPeriod(rateLimit);
         restartProduction();
         LOGGER.info("Setting rate limit to: " + rateLimit);
     }
@@ -74,5 +77,46 @@ public class AirplaneManufacturer implements CommandLineRunner {
         }
         subscription = Flux.interval(Duration.ofMillis(1000 / rateLimit))
             .subscribe(l -> messenger.send(new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()), Topic.AIRPLANES));
+    }*/
+
+    private static class SmoothProducingStrategy {
+        private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
+        private int rateLimit;
+        private final int rateLimitBump;
+        private Runnable production;
+        private Disposable subscription;
+
+        private SmoothProducingStrategy(int rateLimit, int rateLimitBump) {
+            this.rateLimit = rateLimit;
+            this.rateLimitBump = rateLimitBump;
+        }
+
+/*        @Override
+        public void run() {
+            limitProduction(rateLimit, production);
+            EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
+        }*/
+
+        public void startProducing(Runnable production) {
+            this.production = production;
+            limitProduction(rateLimit);
+            EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
+        }
+
+        private void increaseLimit() {
+            rateLimit += rateLimitBump;
+            LOGGER.info("Setting rate limit to: " + rateLimit);
+            limitProduction(rateLimit);
+        }
+
+        private void limitProduction(int limit) {
+            if (subscription != null) {
+                subscription.dispose();
+            }
+            // todo max production of 1/ms == 1000/s
+            subscription = Flux.interval(Duration.ofMillis(1000 / limit))
+                .subscribe(l -> production.run());
+//                .subscribe(l -> messenger.send(new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()), Topic.AIRPLANES));
+        }
     }
 }
