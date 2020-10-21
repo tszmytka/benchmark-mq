@@ -29,57 +29,27 @@ public class AirplaneManufacturer implements CommandLineRunner {
         new Airplane(BOEING, "777", System.nanoTime()),
         new Airplane(AIRBUS, "A380", System.nanoTime()),
     };
-
-    private ScheduledExecutorService scheduledExecutor;
-    private int rateLimit;
-    private int rateLimitAutoIncrease;
+    private int protoPlaneCounter;
 
     @Override
     public void run(String... args) throws Exception {
         LOGGER.info("Starting Airplane manufacturer");
-        final SmoothProducingStrategy producingStrategy = new SmoothProducingStrategy(100, 10);
-        producingStrategy.startProducing(() -> messenger.send(new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()), Topic.AIRPLANES));
-
-
-//        int i = 0;
-//        rateLimit = 100;
-//        setRateLimitAutoIncrease(10);
-
-        //noinspection InfiniteLoopStatement
-/*        while (true) {
-            final Airplane proto = PROTO_AIRPLANES[i];
-            rateLimiter.executeRunnable(() -> messenger.send(new Airplane(proto.maker(), proto.id(), System.nanoTime()), Topic.AIRPLANES));
-            i = (i + 1) % PROTO_AIRPLANES.length;
-        }*/
-//        restartProduction();
+        final ProducingStrategy producingStrategy = new SmoothProducingStrategy(100, 10);
+//        final ProducingStrategy producingStrategy = new Resilience4jProducingStrategy(rateLimiter, 10);
+        producingStrategy.startProducing(() -> messenger.send(produceNewAirplane(), Topic.AIRPLANES));
     }
 
-/*    private void setRateLimitAutoIncrease(int rateLimitAutoIncrease) {
-        this.rateLimitAutoIncrease = rateLimitAutoIncrease;
-        if (scheduledExecutor == null || scheduledExecutor.isShutdown()) {
-            scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-            scheduledExecutor.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
-        }
+    private Airplane produceNewAirplane() {
+        protoPlaneCounter = (protoPlaneCounter + 1) % PROTO_AIRPLANES.length;
+        final Airplane proto = PROTO_AIRPLANES[protoPlaneCounter];
+        return new Airplane(proto.maker(), proto.id(), System.nanoTime());
     }
 
-    private void increaseLimit() {
-        rateLimit += rateLimitAutoIncrease;
-        rateLimiter.changeLimitForPeriod(rateLimit);
-        restartProduction();
-        LOGGER.info("Setting rate limit to: " + rateLimit);
+    interface ProducingStrategy {
+        void startProducing(Runnable production);
     }
 
-    private Disposable subscription;
-
-    private void restartProduction() {
-        if (subscription != null) {
-            subscription.dispose();
-        }
-        subscription = Flux.interval(Duration.ofMillis(1000 / rateLimit))
-            .subscribe(l -> messenger.send(new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()), Topic.AIRPLANES));
-    }*/
-
-    private static class SmoothProducingStrategy {
+    private static class SmoothProducingStrategy implements ProducingStrategy {
         private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
         private int limitPerSecond;
         private final int limitBump;
@@ -91,6 +61,7 @@ public class AirplaneManufacturer implements CommandLineRunner {
             this.limitBump = limitBump;
         }
 
+        @Override
         public void startProducing(Runnable production) {
             this.production = production;
             limitProduction(limitPerSecond);
@@ -109,6 +80,29 @@ public class AirplaneManufacturer implements CommandLineRunner {
             }
             subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limitPerSecond))
                 .subscribe(l -> production.run());
+        }
+    }
+
+    @RequiredArgsConstructor
+    private static class Resilience4jProducingStrategy implements ProducingStrategy {
+        private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
+        private final RateLimiter rateLimiter;
+        private int limitPerSecond;
+        private final int limitBump;
+
+        @Override
+        public void startProducing(Runnable production) {
+            EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
+            //noinspection InfiniteLoopStatement
+            while (true) {
+                rateLimiter.executeRunnable(production);
+            }
+        }
+
+        private void increaseLimit() {
+            limitPerSecond += limitBump;
+            rateLimiter.changeLimitForPeriod(limitPerSecond);
+            LOGGER.info("Setting rate limit to: " + limitPerSecond);
         }
     }
 }
