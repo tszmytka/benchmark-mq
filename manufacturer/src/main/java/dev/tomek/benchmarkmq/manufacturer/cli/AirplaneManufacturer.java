@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -36,15 +39,16 @@ public class AirplaneManufacturer implements CommandLineRunner {
         LOGGER.info("Starting Airplane manufacturer");
         int i = 0;
 
-        rateLimit = 500;
-        setRateLimitAutoIncrease(0);
+        rateLimit = 100;
+        setRateLimitAutoIncrease(10);
 
         //noinspection InfiniteLoopStatement
-        while (true) {
+/*        while (true) {
             final Airplane proto = PROTO_AIRPLANES[i];
             rateLimiter.executeRunnable(() -> messenger.send(new Airplane(proto.maker(), proto.id(), System.nanoTime()), Topic.AIRPLANES));
             i = (i + 1) % PROTO_AIRPLANES.length;
-        }
+        }*/
+        restartProduction();
     }
 
     private void setRateLimitAutoIncrease(int rateLimitAutoIncrease) {
@@ -57,7 +61,18 @@ public class AirplaneManufacturer implements CommandLineRunner {
 
     private void increaseLimit() {
         rateLimit += rateLimitAutoIncrease;
-        rateLimiter.changeLimitForPeriod(rateLimit);
+//        rateLimiter.changeLimitForPeriod(rateLimit);
+        restartProduction();
         LOGGER.info("Setting rate limit to: " + rateLimit);
+    }
+
+    private Disposable subscription;
+
+    private void restartProduction() {
+        if (subscription != null) {
+            subscription.dispose();
+        }
+        subscription = Flux.interval(Duration.ofMillis(1000 / rateLimit))
+            .subscribe(l -> messenger.send(new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()), Topic.AIRPLANES));
     }
 }
