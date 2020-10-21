@@ -91,12 +91,6 @@ public class AirplaneManufacturer implements CommandLineRunner {
             this.rateLimitBump = rateLimitBump;
         }
 
-/*        @Override
-        public void run() {
-            limitProduction(rateLimit, production);
-            EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
-        }*/
-
         public void startProducing(Runnable production) {
             this.production = production;
             limitProduction(rateLimit);
@@ -113,10 +107,8 @@ public class AirplaneManufacturer implements CommandLineRunner {
             if (subscription != null) {
                 subscription.dispose();
             }
-            // todo max production of 1/ms == 1000/s
-            subscription = Flux.interval(Duration.ofMillis(1000 / limit))
+            subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limit))
                 .subscribe(l -> production.run());
-//                .subscribe(l -> messenger.send(new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()), Topic.AIRPLANES));
         }
     }
 }
