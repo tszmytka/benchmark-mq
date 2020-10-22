@@ -3,6 +3,7 @@ package dev.tomek.benchmarkmq.manufacturer.cli;
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
@@ -74,12 +75,15 @@ public interface ProducingStrategy {
         }
 
 
+        @SneakyThrows
         @Override
         public void startProducing(Runnable production) {
             super.startProducing(production);
             //noinspection InfiniteLoopStatement
             while (true) {
                 rateLimiter.executeRunnable(production);
+                //noinspection BusyWait
+                Thread.sleep(5);
             }
         }
 
@@ -97,6 +101,7 @@ public interface ProducingStrategy {
             super(limitPerSecond, limitBump);
         }
 
+        @SneakyThrows
         @Override
         public void startProducing(Runnable production) {
             super.startProducing(production);
@@ -105,6 +110,8 @@ public interface ProducingStrategy {
             while (true) {
                 if (count++ <= limitPerSecond) {
                     production.run();
+                    //noinspection BusyWait
+                    Thread.sleep(5);
                 } else {
                     final long t1 = System.currentTimeMillis();
                     if (t1 - t0 >= 1_000) {
