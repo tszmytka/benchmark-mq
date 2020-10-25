@@ -16,7 +16,8 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_ACTIVEMQ;
 public class ActiveMqConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory(new ActiveMQConnectionFactory("tcp://dockerhost:61616"));
+        final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://dockerhost:61616");
+        return new CachingConnectionFactory(connectionFactory);
     }
 
     @Bean

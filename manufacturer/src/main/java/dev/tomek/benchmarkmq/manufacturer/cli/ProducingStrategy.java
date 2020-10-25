@@ -7,6 +7,8 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
 import java.util.concurrent.Executors;
@@ -32,7 +34,7 @@ public interface ProducingStrategy {
 
         @Override
         public void startProducing(Runnable production) {
-            EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
+            EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 60, TimeUnit.SECONDS);
         }
     }
 
@@ -61,7 +63,8 @@ public interface ProducingStrategy {
             if (subscription != null) {
                 subscription.dispose();
             }
-            subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limitPerSecond)).subscribe(l -> production.run());
+            // delay of 30s should help, right?
+            subscription = Flux.interval(Duration.ofSeconds(30), Duration.ofNanos(1_000_000_000 / limitPerSecond)).subscribe(l -> production.run());
         }
     }
 

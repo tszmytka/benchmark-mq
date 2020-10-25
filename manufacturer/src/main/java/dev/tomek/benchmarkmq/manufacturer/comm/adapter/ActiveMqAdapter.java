@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_ACTIVEMQ;
 
 @Log4j2
@@ -24,7 +26,7 @@ public class ActiveMqAdapter implements CommAdapter {
         try {
             jmsTemplate.convertAndSend(topic.toString(), objectMapper.writeValueAsBytes(airplane));
         } catch (Exception e) {
-            LOGGER.error("Cannot send message", e);
+            LOGGER.error("Problem while sending message", e);
         }
     }
 }
