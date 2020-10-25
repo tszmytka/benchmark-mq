@@ -17,6 +17,7 @@ public class ActiveMqConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://dockerhost:61616");
+        connectionFactory.setUseAsyncSend(true);
         return new CachingConnectionFactory(connectionFactory);
     }
 

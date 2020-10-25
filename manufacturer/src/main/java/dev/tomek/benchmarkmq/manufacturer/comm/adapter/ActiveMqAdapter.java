@@ -24,6 +24,7 @@ public class ActiveMqAdapter implements CommAdapter {
     @Override
     public void send(Airplane airplane, Topic topic) {
         try {
+
             jmsTemplate.convertAndSend(topic.toString(), objectMapper.writeValueAsBytes(airplane));
         } catch (Exception e) {
             LOGGER.error("Problem while sending message", e);

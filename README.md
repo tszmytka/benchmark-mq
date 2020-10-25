@@ -17,7 +17,10 @@ A benchmark application comparing message queue implementations
 
 ## Results
 
-### Latencies
-| Transport Implementation                  | 10 msgs/s         | 100 msgs/s        | 100 msgs/s  |
-| ----------------------------------------- | ----------------- | ----------------- | ----------- |
-| ActiveMQ                                  | 4-5 ms         | 35 658 /s         |          |
+### ActiveMQ
+
+![ActiveMQ message performance chart](doc/img/active-mq.png "ActiveMQ message performance chart")
+
+- Problems caused re-scheduling message production in a separate thread from the beginning
+- Using `AsyncSend` helps *a lot*
+- Results weak nevertheless
