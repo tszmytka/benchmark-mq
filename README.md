@@ -20,6 +20,9 @@ A benchmark application comparing message queue implementations
 | Inter Core i7-4720 @ 2.60GHz      | 4       | 8GB DDR3   |
 
 ## Results
+| Version                               | Driver Library      |
+| ------------------------------------- | ------------------  |
+| Official image: rabbitmq:3.8-management-alpine | `spring-rabbit`       |
 
 ### ActiveMQ
 | Version                               | Driver Library      |
