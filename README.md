@@ -26,7 +26,6 @@ A benchmark application comparing message queue implementations
 | ------------------------------------- | ------------------  |
 | Custom image: openjdk:11-jre-slim + ActiveMQ 5.16.0 | `spring-boot-starter-activemq`       |
 
-Driver used: `spring-boot-starter-activemq`
 
 ![ActiveMQ message performance chart](doc/img/active-mq.png "ActiveMQ message performance chart")
 
@@ -41,7 +40,7 @@ Driver used: `spring-boot-starter-activemq`
 
 ![RabbitMQ message performance chart](doc/img/rabbit-mq.png "RabbitMQ message performance chart")
 
-- Smooth and trouble-free cooperation
+- Smooth and trouble-free cooperation till ~2 000 msg/s mark, multiple "hiccups" after that
 - Feels lightweight and simple
 
 ### Pulsar
@@ -49,5 +48,9 @@ Driver used: `spring-boot-starter-activemq`
 | ------------------------------------- | ------------------  |
 | Official image: apachepulsar/pulsar:2.6.1 | `pulsar-client:2.6.1`       |
 
+![Pulsar message performance chart](doc/img/pulsar-mq.png "Pulsar message performance chart")
+
 - Requires 2GB RAM to even boot up (!?!)
 - Uses a baked-in, old version of Jackson
+- Consistently keeps latency in check
+
