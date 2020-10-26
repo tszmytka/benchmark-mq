@@ -63,7 +63,6 @@ public interface ProducingStrategy {
             if (subscription != null) {
                 subscription.dispose();
             }
-            // delay of 60s should help, right?
             subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limitPerSecond)).subscribe(l -> production.run());
         }
     }
