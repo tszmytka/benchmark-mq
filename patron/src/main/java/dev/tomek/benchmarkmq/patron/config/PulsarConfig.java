@@ -1,6 +1,5 @@
 package dev.tomek.benchmarkmq.patron.config;
 
-import dev.tomek.benchmarkmq.common.Airplane;
 import dev.tomek.benchmarkmq.common.Topic;
 import dev.tomek.benchmarkmq.common.config.CommonPulsarConfig;
 import org.apache.pulsar.client.api.Consumer;
@@ -17,8 +16,8 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_PULSAR;
 @Profile(COMM_PULSAR)
 public class PulsarConfig extends CommonPulsarConfig {
     @Bean
-    public Consumer<Airplane> msgConsumerRefinitiv(PulsarClient pulsarClient) throws PulsarClientException {
-        return pulsarClient.newConsumer(JSONSchema.of(Airplane.class)).topic(TOPIC_AIRPLANES)
+    public Consumer<byte[]> msgConsumerRefinitiv(PulsarClient pulsarClient) throws PulsarClientException {
+        return pulsarClient.newConsumer(JSONSchema.BYTES).topic(TOPIC_AIRPLANES)
             .subscriptionName("subscription-" + Topic.AIRPLANES)
             .subscribe();
     }

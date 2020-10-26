@@ -44,3 +44,10 @@ Driver used: `spring-boot-starter-activemq`
 - Smooth and trouble-free cooperation
 - Feels lightweight and simple
 
+### Pulsar
+| Version                               | Driver Library      |
+| ------------------------------------- | ------------------  |
+| Official image: apachepulsar/pulsar:2.6.1 | `pulsar-client:2.6.1`       |
+
+- Requires 2GB RAM to even boot up (!?!)
+- Uses a baked-in, old version of Jackson

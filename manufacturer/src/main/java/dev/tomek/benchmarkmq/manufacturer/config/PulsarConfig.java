@@ -1,6 +1,5 @@
 package dev.tomek.benchmarkmq.manufacturer.config;
 
-import dev.tomek.benchmarkmq.common.Airplane;
 import dev.tomek.benchmarkmq.common.Topic;
 import dev.tomek.benchmarkmq.common.config.CommonPulsarConfig;
 import org.apache.pulsar.client.api.Producer;
@@ -22,11 +21,11 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_PULSAR;
 @Profile(COMM_PULSAR)
 public class PulsarConfig extends CommonPulsarConfig {
     @Bean
-    public Map<Topic, Producer<Airplane>> msgProducersCommand(PulsarClient pulsarClient) {
+    public Map<Topic, Producer<byte[]>> msgProducersCommand(PulsarClient pulsarClient) {
         return Arrays.stream(Topic.values())
             .collect(Collectors.toMap(Function.identity(), t -> {
                 try {
-                    return pulsarClient.newProducer(JSONSchema.of(Airplane.class)).topic(TOPIC_AIRPLANES).create();
+                    return pulsarClient.newProducer(JSONSchema.BYTES).topic(TOPIC_AIRPLANES).create();
                 } catch (PulsarClientException e) {
                     throw new RuntimeException(e);
                 }

@@ -1,5 +1,6 @@
 package dev.tomek.benchmarkmq.patron.comm.consumer;
 
+import com.fasterxml.jackson.databind.ObjectReader;
 import dev.tomek.benchmarkmq.common.Airplane;
 import dev.tomek.benchmarkmq.patron.comm.RequestHandler;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,8 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_PULSAR;
 @Profile(COMM_PULSAR)
 @RequiredArgsConstructor
 public class PulsarConsumer implements Runnable {
-    private final Consumer<Airplane> msgConsumer;
+    private final Consumer<byte[]> msgConsumer;
+    private final ObjectReader airplaneReader;
     private final RequestHandler requestHandler;
     private final AtomicBoolean shouldRun = new AtomicBoolean(true);
 
@@ -28,9 +30,9 @@ public class PulsarConsumer implements Runnable {
     public void run() {
         while (shouldRun.get()) {
             try {
-                final Message<Airplane> message = msgConsumer.receive();
-                requestHandler.handleRequest(message.getValue());
-            } catch (PulsarClientException e) {
+                final Message<byte[]> message = msgConsumer.receive();
+                requestHandler.handleRequest(airplaneReader.readValue(message.getValue()));
+            } catch (Exception e) {
                 LOGGER.error("Unable to receive message", e);
             }
         }
