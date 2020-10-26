@@ -48,7 +48,7 @@ A benchmark application comparing message queue implementations
 | ------------------------------------- | ------------------  |
 | Official image: apachepulsar/pulsar:2.6.1 | `pulsar-client:2.6.1`       |
 
-![Pulsar message performance chart](doc/img/pulsar-mq.png "Pulsar message performance chart")
+![Pulsar message performance chart](doc/img/pulsar.png "Pulsar message performance chart")
 
 - Requires 2GB RAM to even boot up (!?!)
 - Uses a baked-in, old version of Jackson
