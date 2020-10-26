@@ -50,7 +50,7 @@ A benchmark application comparing message queue implementations
 
 ![Pulsar message performance chart](doc/img/pulsar.png "Pulsar message performance chart")
 
-- Requires 2GB RAM to even boot up (!?!)
-- Uses a baked-in, old version of Jackson
+- Broker requires 2GB RAM to even boot up (!?!)
+- Driver uses a baked-in, old version of Jackson - impossible to override it
 - Consistently keeps latency in check
 
