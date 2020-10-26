@@ -49,7 +49,10 @@
     "links": [],
     "panels": [
         {
-            "aliasColors": {},
+            "aliasColors": {
+                "Message mean latency Benchmark-mq Patron": "dark-blue",
+                "Message rate Benchmark-mq Patron": "dark-green"
+            },
             "bars": false,
             "dashLength": 10,
             "dashes": false,
@@ -61,7 +64,7 @@
                 "overrides": []
             },
             "fill": 1,
-            "fillGradient": 0,
+            "fillGradient": 5,
             "gridPos": {
                 "h": 10,
                 "w": 24,
@@ -73,6 +76,8 @@
             "legend": {
                 "avg": false,
                 "current": false,
+                "hideEmpty": false,
+                "hideZero": false,
                 "max": false,
                 "min": false,
                 "show": true,
@@ -80,7 +85,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 1,
+            "linewidth": 5,
             "nullPointMode": "null",
             "percentage": false,
             "pluginVersion": "7.1.5",
@@ -90,6 +95,10 @@
             "seriesOverrides": [
                 {
                     "alias": "/Message rate/",
+                    "yaxis": 2
+                },
+                {
+                    "alias": "Message rate Benchmark-mq Patron",
                     "yaxis": 2
                 }
             ],

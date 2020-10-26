@@ -22,16 +22,22 @@ A benchmark application comparing message queue implementations
 ## Results
 
 ### ActiveMQ
-Based on `spring-boot-starter-activemq`
+| Version                               | Driver Library      |
+| ------------------------------------- | ------------------  |
+| Custom image: openjdk:11-jre-slim + ActiveMQ 5.16.0 | `spring-boot-starter-activemq`       |
+
+Driver used: `spring-boot-starter-activemq`
 
 ![ActiveMQ message performance chart](doc/img/active-mq.png "ActiveMQ message performance chart")
 
 - Problems caused by re-scheduling message production in a separate thread from the beginning
 - Using `AsyncSend` helps *a lot*
-- Results weak nevertheless
+- Weak results nevertheless, can't pass ~570 msg/s mark
 
 ### RabbitMQ
-Based on `spring-rabbit`
+| Version                               | Driver Library      |
+| ------------------------------------- | ------------------  |
+| Official image: rabbitmq:3.8-management-alpine | `spring-rabbit`       |
 
 ![RabbitMQ message performance chart](doc/img/rabbit-mq.png "RabbitMQ message performance chart")
 
