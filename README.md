@@ -20,9 +20,11 @@ A benchmark application comparing message queue implementations
 | Inter Core i7-4720 @ 2.60GHz      | 4       | 8GB DDR3   |
 
 ## Results
-| Version                               | Driver Library      |
-| ------------------------------------- | ------------------  |
-| Official image: rabbitmq:3.8-management-alpine | `spring-rabbit`       |
+| Transport      | Latency min      | Latency max |
+| -------------- | --------------- |
+| ActiveMQ  | 5 ms       | 25 s |
+| RabbitMQ  | 1 ms       | 15 ms |
+| Pulsar    | 0.6 ms     | 5 ms |
 
 ### ActiveMQ
 | Version                               | Driver Library      |
@@ -56,4 +58,3 @@ A benchmark application comparing message queue implementations
 - Broker requires 2GB RAM to even boot up (!?!)
 - Driver uses a baked-in, old version of Jackson - impossible to override it
 - Consistently keeps latency in check
-
