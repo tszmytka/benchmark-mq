@@ -27,20 +27,24 @@ subprojects {
     }
 
     dependencies {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        implementation 'org.springframework.boot:spring-boot-starter-activemq'
+        implementation 'org.springframework.amqp:spring-rabbit'
+
         final def lombokVersion = '1.18.14'
         compileOnly "org.projectlombok:lombok:$lombokVersion"
         annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
         // for serializing records
         final jacksonVersion = '2.12.0-rc1'
         implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
         implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
-
     }
 
     if (!project.name.endsWith("common")) {
-        apply plugin: 'org.springframework.boot'
-        apply plugin: 'io.spring.dependency-management'
 
         dependencies {
             implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -52,8 +56,6 @@ subprojects {
             implementation 'io.nats:jnats:2.8.0'
             implementation 'org.springframework.boot:spring-boot-starter-data-redis'
             implementation 'org.apache.kafka:kafka-clients:2.5.0'
-            implementation 'org.springframework.amqp:spring-rabbit'
-            implementation 'org.springframework.boot:spring-boot-starter-activemq'
 
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
             testImplementation 'io.projectreactor:reactor-test'

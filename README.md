@@ -24,3 +24,6 @@ A benchmark application comparing message queue implementations
 - Problems caused re-scheduling message production in a separate thread from the beginning
 - Using `AsyncSend` helps *a lot*
 - Results weak nevertheless
+
+### RabbitMQ
+
