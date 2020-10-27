@@ -27,6 +27,7 @@ A benchmark application comparing message queue implementations
 | Pulsar         | 0.6 ms           | 5 ms        | Disabled            |
 | Nats           | 0.6 ms           | 1.1 ms      | None                |
 | Redis          | 0.4 ms           | 25 ms       | None                |
+| Kafka          | 0.4 ms           | 25 ms       | Can't disable       |
 
 ### ActiveMQ
 | Version                                             | Driver Library                       |
@@ -85,4 +86,5 @@ A benchmark application comparing message queue implementations
 ### Kafka
 | Version                                             | Driver Library                       |
 | --------------------------------------------------- | -----------------------------------  |
-| Custom image: openjdk:11-jre-slim + Kafka 2.5.0     | `kafka-clients:2.5.0`       |
+| Custom image: openjdk:11-jre-slim + Kafka 2.5.0     | `kafka-clients:2.5.0`                |
+

@@ -1,5 +1,6 @@
 package dev.tomek.benchmarkmq.patron.config;
 
+import dev.tomek.benchmarkmq.common.Topic;
 import dev.tomek.benchmarkmq.common.config.CommonKafkaConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -25,5 +26,10 @@ public class KafkaConfig extends CommonKafkaConfig {
             new ByteArrayDeserializer(),
             new ByteArrayDeserializer()
         );
+    }
+
+    @Bean
+    public Topic currentTopic() {
+        return Topic.AIRPLANES;
     }
 }

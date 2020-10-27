@@ -5,6 +5,6 @@ import org.springframework.context.annotation.Bean;
 public class CommonKafkaConfig {
     @Bean
     public String kafkaBootstrapServers() {
-        return "kafka:9092";
+        return "kafka.kafka:9092";
     }
 }
