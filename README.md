@@ -65,6 +65,8 @@ A benchmark application comparing message queue implementations
 | ------------------------------------- | ------------------  |
 | Official image: nats:2.1.8            | `jnats:2.8.0`       |
 
+![Nats message performance chart](doc/img/nats.png "Nats message performance chart")
+
 - Excellent results, latency < 1ms 99% of the time
 - Modest requirements
 
