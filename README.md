@@ -81,3 +81,8 @@ A benchmark application comparing message queue implementations
 - Multiple errors while sending messages
 - Noticeable CPU load from broker
 - Exceptional result nevertheless
+
+### Kafka
+| Version                                             | Driver Library                       |
+| --------------------------------------------------- | -----------------------------------  |
+| Custom image: openjdk:11-jre-slim + Kafka 2.5.0     | `kafka-clients:2.5.0`       |

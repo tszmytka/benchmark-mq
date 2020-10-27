@@ -1,5 +1,6 @@
 package dev.tomek.benchmarkmq.patron.config;
 
+import dev.tomek.benchmarkmq.common.config.CommonKafkaConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
@@ -13,12 +14,7 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_KAFKA;
 
 @Configuration
 @Profile(COMM_KAFKA)
-public class KafkaConfig {
-    @Bean
-    public String kafkaBootstrapServers() {
-        return "kafka:9092";
-    }
-
+public class KafkaConfig extends CommonKafkaConfig {
     @Bean
     public KafkaConsumer<byte[], byte[]> kafkaConsumer(String kafkaBootstrapServers) {
         return new KafkaConsumer<>(
