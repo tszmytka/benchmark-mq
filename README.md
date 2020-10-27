@@ -26,6 +26,7 @@ A benchmark application comparing message queue implementations
 | RabbitMQ       | 1 ms             | 15 ms       | Disabled            |
 | Pulsar         | 0.6 ms           | 5 ms        | Disabled            |
 | Nats           | 0.6 ms           | 1.1 ms      | None                |
+| Redis          | 0.4 ms           | 25 ms       | None                |
 
 ### ActiveMQ
 | Version                                             | Driver Library                       |
@@ -70,3 +71,13 @@ A benchmark application comparing message queue implementations
 - Excellent results, latency < 1ms 99% of the time
 - Modest requirements
 
+### Redis
+| Version                               | Driver Library                    |
+| ------------------------------------- | --------------------------------  |
+| Official image: redis:6.0-alpine      | `spring-boot-starter-data-redis`  |
+
+![Redis message performance chart](doc/img/redis.png "Redis message performance chart")
+
+- Multiple errors while sending messages
+- Noticeable CPU load from broker
+- Exceptional result nevertheless
