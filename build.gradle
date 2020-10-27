@@ -34,6 +34,7 @@ subprojects {
         implementation 'org.springframework.amqp:spring-rabbit'
         implementation 'org.apache.pulsar:pulsar-client:2.6.1'
         implementation 'io.nats:jnats:2.8.0'
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
         final def lombokVersion = '1.18.14'
         compileOnly "org.projectlombok:lombok:$lombokVersion"
@@ -54,7 +55,6 @@ subprojects {
             runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
             implementation project(':common')
 
-            implementation 'org.springframework.boot:spring-boot-starter-data-redis'
             implementation 'org.apache.kafka:kafka-clients:2.5.0'
 
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
