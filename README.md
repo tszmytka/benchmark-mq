@@ -21,10 +21,11 @@ A benchmark application comparing message queue implementations
 
 ## Results
 | Transport      | Latency min      | Latency max |
-| -------------- | --------------- |
+| -------------- | --------------- | --------------- |
 | ActiveMQ  | 5 ms       | 25 s |
 | RabbitMQ  | 1 ms       | 15 ms |
 | Pulsar    | 0.6 ms     | 5 ms |
+| Nats      | 0.6 ms     | 1.1 ms |
 
 ### ActiveMQ
 | Version                               | Driver Library      |
@@ -58,3 +59,12 @@ A benchmark application comparing message queue implementations
 - Broker requires 2GB RAM to even boot up (!?!)
 - Driver uses a baked-in, old version of Jackson - impossible to override it
 - Consistently keeps latency in check
+
+### Nats
+| Version                               | Driver Library      |
+| ------------------------------------- | ------------------  |
+| Official image: nats:2.1.8 | `jnats:2.8.0`       |
+
+- Excellent results, latency < 1ms 99% of the time
+- Modest requirements
+
