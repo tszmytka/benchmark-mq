@@ -29,7 +29,7 @@ public interface ProducingStrategy {
 
         void increaseLimit() {
             limitPerSecond += limitBump;
-            LOGGER.info("Setting rate limit to: " + limitPerSecond);
+            LOGGER.info("Setting rate limit to: %d msgs/s".formatted(limitPerSecond));
         }
 
         @Override

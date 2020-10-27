@@ -20,14 +20,14 @@ A benchmark application comparing message queue implementations
 | Inter Core i7-4720 @ 2.60GHz      | 4       | 8GB DDR3   |
 
 ## Results
-| Transport      | Latency min      | Latency max | Message persistence |
-| -------------- | ---------------- | ----------- | ------------------- |
-| ActiveMQ       | 5 ms             | 25 s        | Disabled            |
-| RabbitMQ       | 1 ms             | 15 ms       | Disabled            |
-| Pulsar         | 0.6 ms           | 5 ms        | Disabled            |
-| Nats           | 0.6 ms           | 1.1 ms      | None                |
-| Redis          | 0.4 ms           | 25 ms       | None                |
-| Kafka          | 0.4 ms           | 25 ms       | Can't disable       |
+| Transport      | Latency min      | Latency mean       | Latency max        | Message persistence |
+| -------------- | ---------------- | ------------------ | ------------------ | ------------------- |
+| ActiveMQ       | 5 ms             | 2 s                | 25 s               | Disabled            |
+| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | Disabled            |
+| Pulsar         | 1 ms             | 3 ms               | 5 ms               | Disabled            |
+| Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | None                |
+| Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | None                |
+| Kafka          | 2 ms             | 3 ms               | 10 ms              | Can't disable       |
 
 ### ActiveMQ
 | Version                                             | Driver Library                       |
@@ -88,3 +88,7 @@ A benchmark application comparing message queue implementations
 | --------------------------------------------------- | -----------------------------------  |
 | Custom image: openjdk:11-jre-slim + Kafka 2.5.0     | `kafka-clients:2.5.0`                |
 
+![Kafka message performance chart](doc/img/kafka.png "Kafka message performance chart")
+
+- Very noticeable CPU load from broker
+- Keeps up with other transports despite always persisting all messages
