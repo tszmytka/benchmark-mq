@@ -7,8 +7,6 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
 import java.util.concurrent.Executors;
@@ -42,7 +40,7 @@ public interface ProducingStrategy {
     class Smooth extends BaseStrategy implements ProducingStrategy {
         private Disposable subscription;
 
-        public Smooth(@NonNull int limitPerSecond, int limitBump) {
+        public Smooth(int limitPerSecond, int limitBump) {
             super(limitPerSecond, limitBump);
         }
 
@@ -71,7 +69,7 @@ public interface ProducingStrategy {
     class Resilience4j extends BaseStrategy implements ProducingStrategy {
         private final RateLimiter rateLimiter;
 
-        public Resilience4j(@NonNull int limitPerSecond, int limitBump, RateLimiter rateLimiter) {
+        public Resilience4j(int limitPerSecond, int limitBump, RateLimiter rateLimiter) {
             super(limitPerSecond, limitBump);
             this.rateLimiter = rateLimiter;
         }
@@ -99,7 +97,7 @@ public interface ProducingStrategy {
 
     class Manual extends BaseStrategy implements ProducingStrategy {
 
-        public Manual(@NonNull int limitPerSecond, int limitBump) {
+        public Manual(int limitPerSecond, int limitBump) {
             super(limitPerSecond, limitBump);
         }
 
