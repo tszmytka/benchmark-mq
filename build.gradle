@@ -15,6 +15,7 @@ subprojects {
     sourceCompatibility = 15
     tasks.withType(JavaCompile).each {
         it.options.compilerArgs.add('--enable-preview')
+        it.options.compilerArgs.add('-Xlint:preview')
     }
 
     configurations {
@@ -24,6 +25,7 @@ subprojects {
     }
 
     repositories {
+        mavenLocal()
         mavenCentral()
         maven { url 'https://repo.spring.io/milestone' }
     }
