@@ -10,6 +10,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.stereotype.Component;
 
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_REDIS;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Log4j2
 @Component
@@ -22,7 +23,7 @@ public class RedisAdapter implements CommAdapter {
     @Override
     public void send(Airplane airplane, Topic topic) {
         try {
-            redisConnection.publish(topic.toString().getBytes(), objectMapper.writeValueAsBytes(airplane));
+            redisConnection.publish(topic.toString().getBytes(UTF_8), objectMapper.writeValueAsBytes(airplane));
         } catch (Exception e) {
             LOGGER.error("Could not send message", e);
         }

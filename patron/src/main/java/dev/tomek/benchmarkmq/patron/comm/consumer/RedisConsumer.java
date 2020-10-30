@@ -13,6 +13,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.stereotype.Component;
 
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_REDIS;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Log4j2
 @Component
@@ -40,7 +41,7 @@ public class RedisConsumer implements MessageListener {
 
         @Override
         public void run(String... args) throws Exception {
-            new Thread(() -> redisConnection.subscribe(redisConsumer, Topic.AIRPLANES.toString().getBytes())).start();
+            new Thread(() -> redisConnection.subscribe(redisConsumer, Topic.AIRPLANES.toString().getBytes(UTF_8))).start();
         }
     }
 }
