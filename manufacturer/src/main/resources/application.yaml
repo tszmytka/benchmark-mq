@@ -1,5 +1,14 @@
 spring:
   application:
     name: Manufacturer
+  cloud:
+    stream:
+      bindings:
+        airplanesHandler-out-0:
+          destination: airplanes
+      source: airplanesHandler
 server:
   port: 9001
+nats:
+  spring:
+    server: nats://dockerhost:4222

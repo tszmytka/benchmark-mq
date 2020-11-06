@@ -43,7 +43,7 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
         // spring-cloud-stream + nats
-        implementation 'org.springframework.cloud:spring-cloud-stream'
+        implementation 'org.springframework.cloud:spring-cloud-stream:3.0.8.RELEASE'
         implementation 'io.nats:nats-spring-boot-starter:0.4.0'
         implementation 'io.nats:nats-spring-cloud-stream-binder:0.4.0'
 

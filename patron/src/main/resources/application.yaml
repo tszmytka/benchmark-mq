@@ -4,7 +4,7 @@ spring:
   cloud:
     stream:
       bindings:
-        chairConsumer-in-0:
+        requestHandler-in-0:
           destination: airplanes
       function:
         definition: requestHandler
@@ -18,6 +18,9 @@ management:
           - health
           - info
           - prometheus
+nats:
+  spring:
+    server: nats://dockerhost:4222
 ---
 spring:
   config:
