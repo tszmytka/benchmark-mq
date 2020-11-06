@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_NATS;
+import static dev.tomek.benchmarkmq.common.Profiles.USE_SPRING_CLOUD_STREAM;
 
 @Configuration
 @Profile(COMM_NATS)
@@ -20,6 +21,7 @@ public class NatsConfig extends CommonNatsConfig {
         return connection.createDispatcher(msg -> {});
     }
 
+    @Profile("!" + USE_SPRING_CLOUD_STREAM)
     @Bean
     public Subscription subscriptionAirplanes(Dispatcher dispatcher, NatsConsumer natsConsumer) {
         return dispatcher.subscribe(Topic.AIRPLANES.toString(), natsConsumer);

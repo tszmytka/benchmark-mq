@@ -42,6 +42,11 @@ subprojects {
         implementation 'io.nats:jnats:2.8.0'
         implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+        // spring-cloud-stream + nats
+        implementation 'org.springframework.cloud:spring-cloud-stream'
+        implementation 'io.nats:nats-spring-boot-starter:0.4.0'
+        implementation 'io.nats:nats-spring-cloud-stream-binder:0.4.0'
+
         final def lombokVersion = '1.18.14'
         compileOnly "org.projectlombok:lombok:$lombokVersion"
         annotationProcessor "org.projectlombok:lombok:$lombokVersion"

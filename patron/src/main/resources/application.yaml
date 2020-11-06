@@ -1,6 +1,13 @@
 spring:
   application:
     name: Patron
+  cloud:
+    stream:
+      bindings:
+        chairConsumer-in-0:
+          destination: airplanes
+      function:
+        definition: requestHandler
 server:
   port: 9002
 management:
