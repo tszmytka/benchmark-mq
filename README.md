@@ -29,6 +29,13 @@ A benchmark application comparing message queue implementations
 | Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | None                |
 | Kafka          | 2 ms             | 3 ms               | 10 ms              | Can't disable       |
 
+
+### Spring Cloud Stream impact
+Additional runs have been carried out while utilizing [Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream) which simplifies implementation at a small performance cost.
+| Transport      | Latency min      | Latency mean       | Latency max        |
+| -------------- | ---------------- | ------------------ | ------------------ |
+| Nats           | 0.65 ms          | 0.8 ms             | 3 ms               |
+
 ### ActiveMQ
 | Version                                             | Driver Library                       |
 | --------------------------------------------------- | -----------------------------------  |
@@ -92,3 +99,12 @@ A benchmark application comparing message queue implementations
 
 - Very noticeable CPU load from broker
 - Keeps up with other transports despite always persisting all messages
+
+### Spring Cloud Stream + Nats
+| Version                               | Driver Library                                           |
+| ------------------------------------- | -------------------------------------------------------- |
+| Official image: nats:2.1.8            | `jnats:2.8.0`, `nats-spring-cloud-stream-binder:0.4.0`   |
+
+![Spring Cloud Stream + Nats message performance chart](doc/img/scs-nats.png "Spring Cloud Stream + Nats message performance chart")
+
+- Results only slightly affected, additional cost of `0.1 - 0.3 ms`

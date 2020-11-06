@@ -6,17 +6,14 @@ import dev.tomek.benchmarkmq.common.Topic;
 import io.nats.client.Connection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static dev.tomek.benchmarkmq.common.Profiles.COMM_KAFKA;
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_NATS;
 
 @Log4j2
 @Component
-// nocommit
-@Profile(COMM_KAFKA)
+@Profile(COMM_NATS)
 @RequiredArgsConstructor
 public class NatsAdapter implements CommAdapter {
     private final Connection connection;
