@@ -23,7 +23,7 @@ class ManufacturerNatsTest {
     private static final int NATS_PORT = 4222;
 
     @Container
-    public static GenericContainer<?> nats = new GenericContainer<>(DockerImageName.parse("nats:2.1.8"))/*.withExposedPorts(NATS_PORT)*/;
+    public static GenericContainer<?> nats = new GenericContainer<>(DockerImageName.parse("nats:2.1.8")).withExposedPorts(NATS_PORT);
 
     @Test
     void contextLoads() {
