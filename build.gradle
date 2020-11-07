@@ -44,12 +44,14 @@ subprojects {
         implementation 'org.springframework.amqp:spring-rabbit'
         implementation 'org.apache.pulsar:pulsar-client:2.6.1'
         implementation 'io.nats:jnats:2.8.0'
+        final natsStarterVersion = '0.4.0'
+        implementation "io.nats:nats-spring-boot-starter:$natsStarterVersion"
         implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
         // spring-cloud-stream + nats
+//        implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
 //        implementation 'org.springframework.cloud:spring-cloud-stream'
-//        implementation 'io.nats:nats-spring-boot-starter:0.4.0'
-//        implementation 'io.nats:nats-spring-cloud-stream-binder:0.4.0'
+//        implementation "io.nats:nats-spring-cloud-stream-binder:$natsStarterVersion"
 
         final def lombokVersion = '1.18.14'
         compileOnly "org.projectlombok:lombok:$lombokVersion"
@@ -64,12 +66,6 @@ subprojects {
         compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
     }
 
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        }
-    }
-
     if (!project.name.endsWith("common")) {
 
         dependencies {
@@ -82,6 +78,10 @@ subprojects {
 
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
             testImplementation 'io.projectreactor:reactor-test'
+
+            implementation platform('org.testcontainers:testcontainers-bom:1.15.0')
+            testImplementation 'org.testcontainers:testcontainers'
+            testImplementation 'org.testcontainers:junit-jupiter'
         }
 
         test {

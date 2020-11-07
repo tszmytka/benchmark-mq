@@ -18,16 +18,6 @@ management:
           - health
           - info
           - prometheus
-nats:
-  spring:
-    server: nats://dockerhost:4222
----
-spring:
-  config:
-    activate:
-      on-profile: different-profile
-server:
-  port: 9003
 ---
 spring:
   config:
