@@ -22,7 +22,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_REDIS;
 @ContextConfiguration(initializers = {PatronRedisTest.Initializer.class})
 class PatronRedisTest {
     @Container
-    private static final GenericContainer<?> containerRedis = new GenericContainer<>(DockerImageName.parse(PROPS_REDIS.image())).withExposedPorts(PROPS_REDIS.port());
+    private static final GenericContainer<?> CONTAINER_REDIS = new GenericContainer<>(DockerImageName.parse(PROPS_REDIS.image())).withExposedPorts(PROPS_REDIS.port());
 
     @Test
     void contextLoads() {
@@ -32,8 +32,10 @@ class PatronRedisTest {
 
         @Override
         public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-            final String redisHost = containerRedis.getHost() + ":" + containerRedis.getMappedPort(PROPS_REDIS.port());
-            TestPropertyValues.of("nats.spring.server=" + redisHost).applyTo(applicationContext);
+            TestPropertyValues.of(
+                "spring.redis.host=" + CONTAINER_REDIS.getHost(),
+                "spring.redis.port=" + CONTAINER_REDIS.getMappedPort(PROPS_REDIS.port())
+            ).applyTo(applicationContext);
         }
     }
 }

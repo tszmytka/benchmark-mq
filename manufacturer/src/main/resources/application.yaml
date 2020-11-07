@@ -17,3 +17,11 @@ spring:
 nats:
   spring:
     server: dockerhost:4222
+---
+spring:
+  config:
+    activate:
+      on-profile: comm_redis
+  redis:
+    host: dockerhost
+    port: 6379
