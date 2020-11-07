@@ -9,6 +9,11 @@ spring:
       source: airplanesHandler
 server:
   port: 9001
+---
+spring:
+  config:
+    activate:
+      on-profile: comm_nats
 nats:
   spring:
-    server: nats://dockerhost:4222
+    server: dockerhost:4222

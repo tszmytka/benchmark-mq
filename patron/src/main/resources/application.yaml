@@ -28,3 +28,11 @@ spring:
       on-profile: different-profile
 server:
   port: 9003
+---
+spring:
+  config:
+    activate:
+      on-profile: comm_nats
+nats:
+  spring:
+    server: dockerhost:4222

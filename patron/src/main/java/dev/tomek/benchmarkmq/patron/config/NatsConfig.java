@@ -1,7 +1,6 @@
 package dev.tomek.benchmarkmq.patron.config;
 
 import dev.tomek.benchmarkmq.common.Topic;
-import dev.tomek.benchmarkmq.common.config.CommonNatsConfig;
 import dev.tomek.benchmarkmq.patron.comm.consumer.NatsConsumer;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
@@ -15,7 +14,7 @@ import static dev.tomek.benchmarkmq.common.Profiles.USE_SPRING_CLOUD_STREAM;
 
 @Configuration
 @Profile(COMM_NATS)
-public class NatsConfig extends CommonNatsConfig {
+public class NatsConfig {
     @Bean
     public Dispatcher dispatcher(Connection connection) {
         return connection.createDispatcher(msg -> {});
