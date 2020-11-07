@@ -35,6 +35,5 @@ class ManufacturerActiveMqTest {
 
     @Test
     void contextLoads() {
-        int a = 123;
     }
 }
