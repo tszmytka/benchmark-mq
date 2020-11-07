@@ -63,6 +63,12 @@ subprojects {
         implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
         implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
 
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'io.projectreactor:reactor-test'
+        implementation platform('org.testcontainers:testcontainers-bom:1.15.0')
+        testImplementation 'org.testcontainers:testcontainers'
+        testImplementation 'org.testcontainers:junit-jupiter'
+
         compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
     }
 
@@ -75,13 +81,6 @@ subprojects {
             implementation project(':common')
 
             implementation 'org.apache.kafka:kafka-clients:2.5.0'
-
-            testImplementation 'org.springframework.boot:spring-boot-starter-test'
-            testImplementation 'io.projectreactor:reactor-test'
-
-            implementation platform('org.testcontainers:testcontainers-bom:1.15.0')
-            testImplementation 'org.testcontainers:testcontainers'
-            testImplementation 'org.testcontainers:junit-jupiter'
         }
 
         test {

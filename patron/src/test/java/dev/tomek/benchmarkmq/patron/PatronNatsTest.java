@@ -14,16 +14,15 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_NATS;
+import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_NATS;
 
 @SpringBootTest
 @ActiveProfiles(COMM_NATS)
 @Testcontainers
 @ContextConfiguration(initializers = {PatronNatsTest.Initializer.class})
 class PatronNatsTest {
-    private static final int NATS_PORT = 4222;
-
     @Container
-    public static GenericContainer<?> nats = new GenericContainer<>(DockerImageName.parse("nats:2.1.8")).withExposedPorts(NATS_PORT);
+    private static final GenericContainer<?> nats = new GenericContainer<>(DockerImageName.parse(PROPS_NATS.image())).withExposedPorts(PROPS_NATS.port());
 
     @Test
     void contextLoads() {
@@ -33,7 +32,7 @@ class PatronNatsTest {
 
         @Override
         public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-            final String natsHost = nats.getHost() + ":" + nats.getMappedPort(NATS_PORT);
+            final String natsHost = nats.getHost() + ":" + nats.getMappedPort(PROPS_NATS.port());
             TestPropertyValues.of("nats.spring.server=" + natsHost).applyTo(applicationContext);
         }
     }
