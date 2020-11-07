@@ -68,6 +68,7 @@ subprojects {
         implementation platform('org.testcontainers:testcontainers-bom:1.15.0')
         testImplementation 'org.testcontainers:testcontainers'
         testImplementation 'org.testcontainers:junit-jupiter'
+        testImplementation 'org.testcontainers:rabbitmq'
 
         compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
     }

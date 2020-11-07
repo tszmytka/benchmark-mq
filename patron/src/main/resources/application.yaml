@@ -34,3 +34,11 @@ spring:
   redis:
     host: dockerhost
     port: 6379
+---
+spring:
+  config:
+    activate:
+      on-profile: comm_rabbitmq
+  rabbitmq:
+    host: dockerhost
+    port: 5672

@@ -8,11 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 public abstract class CommonRabbitMqConfig {
     @Bean
-    public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("dockerhost", 5672);
-    }
-
-    @Bean
     public Queue airplanesQueue() {
         return new Queue(Topic.AIRPLANES.toString(), false);
     }
