@@ -89,6 +89,9 @@ subprojects {
         test {
             useJUnitPlatform()
             jvmArgs(['--enable-preview'])
+            testLogging {
+                exceptionFormat = 'full'
+            }
         }
     }
 
