@@ -1,5 +1,6 @@
 package dev.tomek.benchmarkmq.manufacturer;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -34,6 +35,7 @@ class ManufacturerActiveMqTest {
         .withExposedService("activemq", 61616);
 
     @Test
+    @Disabled
     void contextLoads() {
     }
 }
