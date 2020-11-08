@@ -1,9 +1,19 @@
 image: openjdk:15.0.1-slim
 
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
 Compile:
+  stage: build
   script:
     - './gradlew classes'
 
 Test:
+  stage: test
   script:
     - './gradlew test'
