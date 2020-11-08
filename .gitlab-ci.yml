@@ -7,6 +7,11 @@ variables:
   # Instruct Testcontainers to use the daemon of DinD.
   DOCKER_HOST: "tcp://docker:2375"
 
+stages:
+  - build
+  - test
+  - check
+
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
@@ -24,3 +29,8 @@ Test:
   stage: test
   script:
     - './gradlew test'
+
+Check:
+  stage: check
+  script:
+    - './gradlew check'
