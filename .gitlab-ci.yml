@@ -1,11 +1,13 @@
 image: openjdk:15.0.1-slim
 
-services:
-  - docker:19.03-dind
-
 variables:
   # Instruct Testcontainers to use the daemon of DinD.
   DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+
+services:
+  - docker:19.03-dind
 
 stages:
   - build
