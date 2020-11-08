@@ -12,33 +12,17 @@ import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.io.File;
-import java.io.IOException;
-
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_ACTIVEMQ;
+import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_ACTIVEMQ;
 
 @SpringBootTest
 @ActiveProfiles(COMM_ACTIVEMQ)
 @Testcontainers
 @ContextConfiguration(initializers = {ManufacturerActiveMqTest.Initializer.class})
 class ManufacturerActiveMqTest {
-    private static final String SERVICE_ACTIVEMQ = "activemq";
-    private static final int ACTIVEMQ_PORT = 61616;
-    private static final File DC_FILE;
-
-    static {
-        File dcFile = new File("./../docker-compose.activemq.yml");
-        try {
-            dcFile = dcFile.getCanonicalFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        DC_FILE = dcFile;
-    }
-
     @Container
-    private static final DockerComposeContainer<?> CONTAINER_ACTIVEMQ = new DockerComposeContainer<>(DC_FILE)
-        .withExposedService(SERVICE_ACTIVEMQ, ACTIVEMQ_PORT)
+    private static final DockerComposeContainer<?> CONTAINER_ACTIVEMQ = new DockerComposeContainer<>(PROPS_ACTIVEMQ.dockerComposeFile())
+        .withExposedService(PROPS_ACTIVEMQ.serviceName(), PROPS_ACTIVEMQ.port())
         .withLocalCompose(true);
 
     @Test
@@ -49,8 +33,8 @@ class ManufacturerActiveMqTest {
 
         @Override
         public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-            final String activemqBrokerUrl = "tcp://" + CONTAINER_ACTIVEMQ.getServiceHost(SERVICE_ACTIVEMQ, ACTIVEMQ_PORT)
-                + ":" + CONTAINER_ACTIVEMQ.getServicePort(SERVICE_ACTIVEMQ, ACTIVEMQ_PORT);
+            final String activemqBrokerUrl = "tcp://" + CONTAINER_ACTIVEMQ.getServiceHost(PROPS_ACTIVEMQ.serviceName(), PROPS_ACTIVEMQ.port())
+                + ":" + CONTAINER_ACTIVEMQ.getServicePort(PROPS_ACTIVEMQ.serviceName(), PROPS_ACTIVEMQ.port());
             TestPropertyValues.of("spring.activemq.broker-url=" + activemqBrokerUrl).applyTo(applicationContext);
         }
     }

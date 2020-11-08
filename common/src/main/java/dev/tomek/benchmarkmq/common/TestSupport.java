@@ -1,5 +1,7 @@
 package dev.tomek.benchmarkmq.common;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 public class TestSupport {
@@ -8,6 +10,17 @@ public class TestSupport {
     public static final ContainerProperties PROPS_RABBITMQ = new ContainerProperties("rabbitmq:3.8-management-alpine", 5672);
     public static final ContainerProperties PROPS_KAFKA = new ContainerProperties("confluentinc/cp-kafka:6.0.0", 9092);
     public static final ContainerProperties PROPS_PULSAR = new ContainerProperties("apachepulsar/pulsar:2.6.1", 6650, Map.of("PULSAR_MEM", "-Xmx128m"));
+    public static final ServiceProperties PROPS_ACTIVEMQ;
+
+    static {
+        File dcActiveMqFile = new File("./../docker-compose.activemq.yml");
+        try {
+            dcActiveMqFile = dcActiveMqFile.getCanonicalFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        PROPS_ACTIVEMQ = new ServiceProperties(dcActiveMqFile, "activemq", 61616);
+    }
 
     private TestSupport() {
     }
@@ -16,5 +29,8 @@ public class TestSupport {
         public ContainerProperties(String image, int port) {
             this(image, port, null);
         }
+    }
+
+    public record ServiceProperties(File dockerComposeFile, String serviceName, int port) {
     }
 }

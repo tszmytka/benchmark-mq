@@ -22,7 +22,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_NATS;
 @ContextConfiguration(initializers = {PatronNatsTest.Initializer.class})
 class PatronNatsTest {
     @Container
-    private static final GenericContainer<?> nats = new GenericContainer<>(DockerImageName.parse(PROPS_NATS.image())).withExposedPorts(PROPS_NATS.port());
+    private static final GenericContainer<?> nats = new GenericContainer<>(DockerImageName.parse(PROPS_NATS.image()))/*.withExposedPorts(PROPS_NATS.port())*/;
 
     @Test
     void contextLoads() {
