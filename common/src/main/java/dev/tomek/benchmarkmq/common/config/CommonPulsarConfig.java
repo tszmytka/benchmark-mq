@@ -9,7 +9,12 @@ public abstract class CommonPulsarConfig {
     protected static final String TOPIC_AIRPLANES = "non-persistent://public/default/" + Topic.AIRPLANES.toString();
 
     @Bean
-    public PulsarClient pulsarClient() throws PulsarClientException {
-        return PulsarClient.builder().serviceUrl("pulsar://dockerhost:6650").build();
+    public String pulsarServiceUrl() {
+        return "pulsar://dockerhost:6650";
+    }
+
+    @Bean
+    public PulsarClient pulsarClient(String pulsarServiceUrl) throws PulsarClientException {
+        return PulsarClient.builder().serviceUrl(pulsarServiceUrl).build();
     }
 }

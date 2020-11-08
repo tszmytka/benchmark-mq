@@ -70,6 +70,7 @@ subprojects {
         testImplementation 'org.testcontainers:junit-jupiter'
         testImplementation 'org.testcontainers:rabbitmq'
         testImplementation 'org.testcontainers:kafka'
+        testImplementation 'org.testcontainers:pulsar'
 
         compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
     }
