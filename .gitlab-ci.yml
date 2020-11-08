@@ -30,7 +30,7 @@ Compile:
 Test:
   stage: test
   script:
-    - './gradlew test'
+    - './gradlew test --stacktrace'
 
 Check:
   stage: check
