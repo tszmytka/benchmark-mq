@@ -42,3 +42,10 @@ spring:
   rabbitmq:
     host: dockerhost
     port: 5672
+---
+spring:
+  config:
+    activate:
+      on-profile: comm_activemq
+  activemq:
+    broker-url: tcp://dockerhost:61616
