@@ -7,8 +7,7 @@ variables:
   DOCKER_TLS_CERTDIR: "/certs"
 
 services:
-  - name: docker:19.03-dind
-    alias: docker
+  - docker:18.09-dind
 
 stages:
   - build
