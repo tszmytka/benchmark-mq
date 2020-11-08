@@ -88,6 +88,7 @@ subprojects {
 
         test {
             useJUnitPlatform()
+            jvmArgs(['--enable-preview'])
         }
     }
 

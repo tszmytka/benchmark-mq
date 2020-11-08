@@ -3,3 +3,7 @@ image: openjdk:15.0.1-slim
 Compile:
   script:
     - './gradlew classes'
+
+Test:
+  script:
+    - './gradlew test'
