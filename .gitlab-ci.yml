@@ -4,7 +4,7 @@ variables:
   # Instruct Testcontainers to use the daemon of DinD.
   DOCKER_HOST: "tcp://docker:2375"
   DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_TLS_CERTDIR: ""
 
 services:
   - docker:19.03-dind
@@ -31,7 +31,7 @@ Compile:
 Test:
   stage: test
   script:
-    - './gradlew test --stacktrace'
+    - './gradlew test'
 
 Check:
   stage: check
