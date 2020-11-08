@@ -1,0 +1,5 @@
+image: openjdk:15.0.1-slim
+
+Build:
+  script:
+    - './gradlew build'
