@@ -1,5 +1,5 @@
 image: openjdk:15.0.1-slim
 
-Build:
+Compile:
   script:
-    - './gradlew build'
+    - './gradlew classes'
