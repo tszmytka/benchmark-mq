@@ -1,5 +1,7 @@
 package dev.tomek.benchmarkmq.common;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -25,12 +27,14 @@ public class TestSupport {
     private TestSupport() {
     }
 
+    @SuppressFBWarnings(value = "EQ_UNUSUAL", justification = "Spotbugs complains about auto-generated code")
     public record ContainerProperties(String image, int port, Map<String, String> envVars) {
         public ContainerProperties(String image, int port) {
             this(image, port, null);
         }
     }
 
+    @SuppressFBWarnings(value = "EQ_UNUSUAL", justification = "Spotbugs complains about auto-generated code")
     public record ServiceProperties(File dockerComposeFile, String serviceName, int port) {
     }
 }
