@@ -4,10 +4,11 @@ variables:
   # Instruct Testcontainers to use the daemon of DinD.
   DOCKER_HOST: "tcp://docker:2375"
   DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
+  DOCKER_TLS_CERTDIR: "/certs"
 
 services:
-  - docker:19.03-dind
+  - name: docker:19.03-dind
+    alias: docker
 
 stages:
   - build
