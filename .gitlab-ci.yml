@@ -1,5 +1,12 @@
 image: openjdk:15.0.1-slim
 
+services:
+  - docker:19.03-dind
+
+variables:
+  # Instruct Testcontainers to use the daemon of DinD.
+  DOCKER_HOST: "tcp://docker:2375"
+
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
