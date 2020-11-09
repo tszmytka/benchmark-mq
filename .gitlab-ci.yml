@@ -1,4 +1,4 @@
-image: openjdk:15.0.1-slim
+#image: openjdk:15.0.1-slim
 
 variables:
   # Instruct Testcontainers to use the daemon of DinD.
@@ -7,7 +7,7 @@ variables:
   DOCKER_TLS_CERTDIR: "/certs"
 
 services:
-  - docker:18-dind
+  - docker:19.03-dind
 
 stages:
   - build
@@ -24,15 +24,18 @@ cache:
 
 Compile:
   stage: build
+  image: openjdk:15.0.1-slim
   script:
     - './gradlew classes'
 
 Test:
   stage: test
+  image: openjdk:15.0.1-slim
   script:
     - './gradlew test'
 
 Check:
   stage: check
+  image: openjdk:15.0.1-slim
   script:
     - './gradlew check'
