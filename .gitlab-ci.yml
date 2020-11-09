@@ -24,11 +24,15 @@ cache:
 
 Compile:
   stage: build
+  variables:
+    DOCKER_HOST: "tcp://docker:2375"
   script:
     - './gradlew classes'
 
 Test:
   stage: test
+  variables:
+    DOCKER_HOST: "tcp://docker:2375"
   script:
     - './gradlew test'
 
