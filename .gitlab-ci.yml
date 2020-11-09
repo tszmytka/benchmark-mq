@@ -1,7 +1,7 @@
 image: openjdk:15.0.1-slim
 
 services:
-  - docker:19.03-dind
+  - docker:17-dind
 
 variables:
   # Instruct Testcontainers to use the daemon of DinD.
