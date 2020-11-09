@@ -25,6 +25,8 @@ cache:
 Compile:
   stage: build
   script:
+    - 'ping docker'
+    - 'ping abc123'
     - './gradlew classes'
 
 Test:
