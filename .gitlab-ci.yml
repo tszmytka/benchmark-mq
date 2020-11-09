@@ -1,8 +1,8 @@
-image: openjdk:15.0.1
+image: openjdk:15.0.1-slim
 
 variables:
   # Instruct Testcontainers to use the daemon of DinD.
-  DOCKER_HOST: "tcp://172.18.0.0:2375"
+  DOCKER_HOST: "unix:///var/run/docker/containerd/containerd.sock"
   DOCKER_DRIVER: "overlay2"
   DOCKER_TLS_CERTDIR: "/certs"
 
