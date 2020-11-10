@@ -5,7 +5,7 @@ services:
 
 variables:
   # Instruct Testcontainers to use the daemon of DinD.
-  DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_HOST: "tcp://docker:2375" # needed in 17-dind
 #  DOCKER_DRIVER: "overlay2"
 #  DOCKER_TLS_CERTDIR: "/certs"
 
@@ -16,6 +16,7 @@ stages:
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
+  - curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 cache:
   paths:
