@@ -92,7 +92,7 @@ subprojects {
             // show failing test stacktrace in output
             testLogging {
                 exceptionFormat = 'full'
-                showStandardStreams = true
+//                showStandardStreams = true
             }
         }
     }
