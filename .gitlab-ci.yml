@@ -16,7 +16,8 @@ stages:
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
-  - curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - apk add --no-cache py-pip bash
+  - pip install docker-compose
 
 cache:
   paths:
