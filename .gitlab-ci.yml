@@ -16,7 +16,7 @@ stages:
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
-  - apk add --no-cache py-pip python-dev, libffi-dev, openssl-dev, gcc, libc-dev, make
+  - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
   - pip install docker-compose
 
 cache:
