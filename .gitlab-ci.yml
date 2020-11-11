@@ -8,6 +8,7 @@ variables:
   DOCKER_HOST: "tcp://docker:2375" # needed in 17-dind
 #  DOCKER_DRIVER: "overlay2"
 #  DOCKER_TLS_CERTDIR: "/certs"
+#  GRADLE_OPTS: "-Dorg.gradle.daemon=false" # todo Slower but more correct?
 
 stages:
   - build
@@ -16,6 +17,8 @@ stages:
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
+#  - echo `pwd`
+#  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE"
 
 cache:
   paths:
@@ -25,7 +28,7 @@ cache:
 Compile:
   stage: build
   script:
-    - './gradlew classes'
+    - './gradlew --build-cache classes' # todo Does this allow results to be re-used?
 
 Test:
   stage: test
@@ -34,7 +37,7 @@ Test:
     - pip install docker-compose
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
-    - './gradlew test'
+    - './gradlew --build-cache test' # todo Does this allow results to be re-used?
 
 Check:
   stage: check
