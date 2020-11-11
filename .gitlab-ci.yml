@@ -4,11 +4,10 @@ services:
   - docker:17-dind
 
 variables:
-  # Instruct Testcontainers to use the daemon of DinD.
   DOCKER_HOST: "tcp://docker:2375" # needed in 17-dind
 #  DOCKER_DRIVER: "overlay2"
 #  DOCKER_TLS_CERTDIR: "/certs"
-#  GRADLE_OPTS: "-Dorg.gradle.daemon=false" # todo Slower but more correct?
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false" # all stages on separate containers anyway
 
 stages:
   - build
@@ -28,7 +27,7 @@ cache:
 Compile:
   stage: build
   script:
-    - './gradlew --build-cache classes' # todo Does this allow results to be re-used?
+    - './gradlew --build-cache classes'
 
 Test:
   stage: test
@@ -37,9 +36,9 @@ Test:
     - pip install docker-compose
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
-    - './gradlew --build-cache test' # todo Does this allow results to be re-used?
+    - './gradlew --build-cache test'
 
 Check:
   stage: check
   script:
-    - './gradlew check'
+    - './gradlew --build-cache check'

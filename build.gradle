@@ -91,7 +91,7 @@ subprojects {
             jvmArgs(['--enable-preview'])
             // show failing test stacktrace in output
             testLogging {
-                exceptionFormat = 'full'
+//                exceptionFormat = 'full'
 //                showStandardStreams = true
             }
         }
