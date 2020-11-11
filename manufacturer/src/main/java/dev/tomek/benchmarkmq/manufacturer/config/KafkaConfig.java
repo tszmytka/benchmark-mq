@@ -15,7 +15,7 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_KAFKA;
 @Configuration
 @Profile(COMM_KAFKA)
 public class KafkaConfig extends CommonKafkaConfig {
-    @Bean
+//    @Bean
     public KafkaProducer<byte[], byte[]> kafkaProducer(String kafkaBootstrapServers) {
         return new KafkaProducer<>(
             Map.of(
