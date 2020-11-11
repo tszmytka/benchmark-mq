@@ -36,7 +36,7 @@ Test:
     - pip install docker-compose
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
-    - './gradlew --build-cache test'
+    - './gradlew test'
 
 Check:
   stage: check
