@@ -6,7 +6,7 @@ services:
 variables:
   DOCKER_HOST: "tcp://docker:2375" # needed in 17-dind
 #  DOCKER_DRIVER: "overlay2"
-#  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_TLS_CERTDIR: ""
   GRADLE_OPTS: "-Dorg.gradle.daemon=false" # all stages on separate containers anyway
 
 stages:
