@@ -24,4 +24,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Compile
-        run: ./gradlew classes
+        run: ./gradlew --build-cache classes
+      - name: Test
+        run: ./gradlew --build-cache test
