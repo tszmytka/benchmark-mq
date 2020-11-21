@@ -10,5 +10,6 @@ public class Profiles {
     public static final String COMM_NATS = "comm_nats";
     public static final String COMM_REDIS = "comm_redis";
     public static final String COMM_KAFKA = "comm_kafka";
+    public static final String COMM_NSQ = "comm_nsq";
     public static final String USE_SPRING_CLOUD_STREAM = "use_spring_cloud_stream";
 }

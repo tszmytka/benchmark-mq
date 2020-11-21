@@ -47,6 +47,7 @@ subprojects {
         final natsStarterVersion = '0.4.0'
         implementation "io.nats:nats-spring-boot-starter:$natsStarterVersion"
         implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        implementation 'com.sproutsocial:nsq-j:1.0'
 
         // spring-cloud-stream + nats
 //        implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
