@@ -23,6 +23,7 @@ public class NsqConsumer implements MessageHandler {
     public void accept(Message msg) {
         try {
             requestHandler.handleRequest(airplaneReader.readValue(msg.getData()));
+            msg.finish();
         } catch (Exception e) {
             LOGGER.error("could not handle message", e);
         }

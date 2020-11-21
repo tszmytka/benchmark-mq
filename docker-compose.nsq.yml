@@ -9,7 +9,8 @@ services:
 
   nsqd:
     image: nsqio/nsq:v1.2.0
-    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160 --broadcast-address=dockerhost
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160
+#    --broadcast-address=dockerhost
     depends_on:
       - nsqlookupd
     ports:

@@ -22,7 +22,7 @@ public class NsqAdapter implements CommAdapter {
     @Override
     public void send(Airplane airplane, Topic topic) {
         try {
-            publisher.publishBuffered(topic.toString(), objectMapper.writeValueAsBytes(airplane));
+            publisher.publish(topic.toString(), objectMapper.writeValueAsBytes(airplane));
         } catch (Exception e) {
             LOGGER.error("Could not publish message", e);
         }
