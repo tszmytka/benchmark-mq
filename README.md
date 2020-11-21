@@ -20,15 +20,15 @@ A benchmark application comparing message queue implementations
 | Inter Core i7-4720 @ 2.60GHz      | 4       | 8GB DDR3   |
 
 ## Results
-| Transport      | Latency min      | Latency mean       | Latency max        | Max processed msgs/s | Message persistence | Notes  |
-| -------------- | ---------------- | ------------------ | ------------------ | -------------------- | ------------------- | ------ |
-| ActiveMQ       | 5 ms             | 2 s                | 25 s               | 570                  | Disabled            | Disappointing with more messages |
-| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | ?? | Disabled            | Good results with best libraries/examples |
-| Pulsar         | 1 ms             | 3 ms               | 5 ms               | ?? | Disabled            | On-par with Kafka only after disabling persistence |
-| Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | ?? | None                | Hands-down best results               |
+| Transport      | Latency min      | Latency mean       | Latency max        | Max processed | Message persistence | Notes  |
+| -------------- | ---------------- | ------------------ | ------------------ | ------------- | ------------------- | ------ |
+| ActiveMQ       | 5 ms             | 2 s                | 25 s               | 570/s         | Disabled            | Disappointing with more messages |
+| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | 3.6K/s        | Disabled            | Good results with best libraries/examples |
+| Pulsar         | 1 ms             | 3 ms               | 5 ms               | ???         | Disabled            | On-par with Kafka only after disabling persistence |
+| Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | 26K/s | None                | Sub-ms latency with ~15K msgs/s. Hands-down best results   |
 | Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | ?? | None                | Close second place                    |
 | Kafka          | 2 ms             | 3 ms               | 10 ms              | ?? | Can't disable       | Great despite persisting all messages |
-| Nsq            | 11 ms            | 26 ms              | 125 ms             | 3 500                | None                | Better latencies *after* 3000 msg/s   |
+| Nsq            | 11 ms            | 26 ms              | 125 ms             | 3.5K/s        | None                | Better latencies *after* 3000 msg/s   |
 
 
 ### Spring Cloud Stream impact
@@ -112,6 +112,7 @@ Additional runs have been carried out while utilizing [Spring Cloud Stream](http
 - Latency starts off poorly (~120 ms) but constantly increases (?!?) with message amount increase
 - Only unofficial java driver
 - Multiple exceptions while producing
+- Nice admin interface counter
 
 ### Spring Cloud Stream + Nats
 | Version                               | Driver Library                                           |

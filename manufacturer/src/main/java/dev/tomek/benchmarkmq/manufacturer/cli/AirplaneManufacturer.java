@@ -28,7 +28,7 @@ public class AirplaneManufacturer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         LOGGER.info("Starting Airplane manufacturer");
 
-        final ProducingStrategy producingStrategy = new ProducingStrategy.Smooth(3000, 500);
+        final ProducingStrategy producingStrategy = new ProducingStrategy.Smooth(24000, 2000);
 //        final ProducingStrategy producingStrategy = new ProducingStrategy.Resilience4j(100, 10, rateLimiter);
 //        final ProducingStrategy.Manual producingStrategy = new ProducingStrategy.Manual(100, 10);
         producingStrategy.startProducing(() -> messenger.send(produceNewAirplane(), Topic.AIRPLANES));
