@@ -28,6 +28,7 @@ A benchmark application comparing message queue implementations
 | Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | None                |
 | Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | None                |
 | Kafka          | 2 ms             | 3 ms               | 10 ms              | Can't disable       |
+| Nsq            | 15 ms            | 36 ms              | 125 ms             | None                |
 
 
 ### Spring Cloud Stream impact
@@ -99,6 +100,17 @@ Additional runs have been carried out while utilizing [Spring Cloud Stream](http
 
 - Very noticeable CPU load from broker
 - Keeps up with other transports despite always persisting all messages
+
+### Nsq
+| Version                              | Driver Library                     |
+| ------------------------------------ | ---------------------------------  |
+| Official image: nsqio/nsq:v1.2.0     | `com.sproutsocial:nsq-j:1.0`       |
+
+![Nsq message performance chart](doc/img/nsq.png "Nsq message performance chart")
+
+- Quirky in set-up (needs an additional service - nsqlookupd)
+- Latency starts off poorly (~120 ms) but constantly increases (?!?) with message amount increase
+- Only unofficial java driver
 
 ### Spring Cloud Stream + Nats
 | Version                               | Driver Library                                           |
