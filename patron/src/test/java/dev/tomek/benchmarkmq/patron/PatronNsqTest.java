@@ -33,7 +33,8 @@ public class PatronNsqTest {
 
         @Override
         public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-            TestPropertyValues.of("nsq.nsqlookupd-host=" + PROPS_NSQ.serviceName()).applyTo(applicationContext);
+            final String snsqlookupdHost = PROPS_NSQ.serviceName() + ":" + CONTAINER_NSQ.getServicePort(PROPS_NSQ.serviceName(), PROPS_NSQ.port());
+            TestPropertyValues.of("nsq.nsqlookupd-host=" + snsqlookupdHost).applyTo(applicationContext);
         }
     }
 }

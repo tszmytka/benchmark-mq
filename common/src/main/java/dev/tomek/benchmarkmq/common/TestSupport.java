@@ -30,7 +30,7 @@ public class TestSupport {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        PROPS_NSQ = new ServiceProperties(dcNsqFile, "nsqlookupd", 4151);
+        PROPS_NSQ = new ServiceProperties(dcNsqFile, "nsqlookupd", 4160);
     }
 
     private TestSupport() {
