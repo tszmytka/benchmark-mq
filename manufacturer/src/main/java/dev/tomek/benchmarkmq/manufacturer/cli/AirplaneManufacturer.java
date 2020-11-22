@@ -16,7 +16,6 @@ import static dev.tomek.benchmarkmq.common.Airplane.Maker.*;
 @RequiredArgsConstructor
 public class AirplaneManufacturer implements CommandLineRunner {
     private final Messenger messenger;
-    private final RateLimiter rateLimiter;
     private final Airplane[] PROTO_AIRPLANES = {
         new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()),
         new Airplane(BOEING, "777", System.nanoTime()),

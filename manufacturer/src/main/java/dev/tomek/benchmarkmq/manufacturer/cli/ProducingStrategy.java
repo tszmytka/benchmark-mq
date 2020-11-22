@@ -23,7 +23,7 @@ public interface ProducingStrategy {
     @Log4j2
     @RequiredArgsConstructor
     abstract class BaseStrategy implements ProducingStrategy {
-        static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
+        final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         @NonNull
         int limitPerSecond;
         final int limitBump;
@@ -36,7 +36,7 @@ public interface ProducingStrategy {
 
         @Override
         public void startProducing(Runnable production) {
-            EXECUTOR.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
+            executor.scheduleAtFixedRate(this::increaseLimit, 5, 30, TimeUnit.SECONDS);
         }
     }
 
@@ -57,7 +57,7 @@ public interface ProducingStrategy {
 
         @Override
         public void stopProducing() {
-            EXECUTOR.shutdownNow();
+            executor.shutdownNow();
             limitProduction(0);
         }
 
@@ -102,6 +102,7 @@ public interface ProducingStrategy {
 
         @Override
         public void stopProducing() {
+            executor.shutdownNow();
             shouldProduce.set(false);
         }
 
@@ -144,6 +145,7 @@ public interface ProducingStrategy {
 
         @Override
         public void stopProducing() {
+            executor.shutdownNow();
             shouldProduce.set(false);
         }
     }
