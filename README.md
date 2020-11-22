@@ -6,6 +6,7 @@ A benchmark application comparing message queue implementations
 * Nats
 * Redis
 * Kafka
+* NSQ
 
 ## Technology stack
 * jdk15
@@ -14,21 +15,27 @@ A benchmark application comparing message queue implementations
 * lombok 1.18
 * jackson 2.12
 
-## Host machine
+## Setup
+#### Host machine: producer and consumer
 | CPU                               | CORES   | RAM        |
 | --------------------------------- | ------  | ---------- |
 | Inter Core i7-4720 @ 2.60GHz      | 4       | 8GB DDR3   |
 
+#### Host machine: broker
+| CPU                               | CORES   | RAM        |
+| --------------------------------- | ------  | ---------- |
+| Inter Core i7-4720 @ 2.60GHz      | 1       | 1GB DDR3   |
+
 ## Results
-| Transport      | Latency min      | Latency mean       | Latency max        | Max processed | Message persistence | Notes  |
-| -------------- | ---------------- | ------------------ | ------------------ | ------------- | ------------------- | ------ |
+| Transport      | Latency min      | Latency mean       | Latency max        | Max processed | Message persistence | Notes                            |
+| -------------- | ---------------- | ------------------ | ------------------ | ------------- | ------------------- | -------------------------------- |
 | ActiveMQ       | 5 ms             | 2 s                | 25 s               | 570/s         | Disabled            | Disappointing with more messages |
-| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | 3.6K/s        | Disabled            | Good results with best libraries/examples |
-| Pulsar         | 1 ms             | 3 ms               | 5 ms               | ???         | Disabled            | On-par with Kafka only after disabling persistence |
-| Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | 26K/s | None                | Sub-ms latency with ~15K msgs/s. Hands-down best results   |
-| Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | ?? | None                | Close second place                    |
-| Kafka          | 2 ms             | 3 ms               | 10 ms              | ?? | Can't disable       | Great despite persisting all messages |
-| Nsq            | 11 ms            | 26 ms              | 125 ms             | 3.5K/s        | None                | Better latencies *after* 3000 msg/s   |
+| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | 3.6K/s        | Disabled            | Good latencies, sub-par throughput with best libraries/examples |
+| Pulsar         | 1 ms             | 3 ms               | 5 ms               | 26K/s         | Disabled            | On-par with Kafka only after disabling persistence |
+| Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | 26K/s         | None                | Sub-ms latency with ~15K msgs/s. Hands-down best results   |
+| Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | 3.5K/s        | None                | Low latencies but not the best throughput       |
+| Kafka          | 2 ms             | 3 ms               | 10 ms              | 26K/s         | Can't disable       | All-round great despite persisting all messages |
+| Nsq            | 11 ms            | 26 ms              | 125 ms             | 3.5K/s        | None                | Outsider. Better latencies *after* 3000 msg/s   |
 
 
 ### Spring Cloud Stream impact
@@ -62,12 +69,13 @@ Additional runs have been carried out while utilizing [Spring Cloud Stream](http
 ### Pulsar
 | Version                                   | Driver Library          |
 | ----------------------------------------- | ----------------------  |
-| Official image: apachepulsar/pulsar:2.6.1 | `pulsar-client:2.6.1`   |
+| Official image: apachepulsar/pulsar:2.6.2 | `pulsar-client:2.6.2`   |
 
 ![Pulsar message performance chart](doc/img/pulsar.png "Pulsar message performance chart")
 
-- Broker requires 2GB RAM to even boot up (!?!)
-- Driver uses a baked-in, old version of Jackson - impossible to override it
+- Very heavy image. Broker requires (by default) 2GB RAM to even boot up (!?!)
+- Driver uses a baked-in, old version of Jackson (impossible to override it) so you have to serialize by han
+- Rides the CPU from t=0
 - Consistently keeps latency in check
 
 ### Nats
