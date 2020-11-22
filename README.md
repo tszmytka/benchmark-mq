@@ -30,7 +30,7 @@ A benchmark application comparing message queue implementations
 | Transport      | Latency min      | Latency mean       | Latency max        | Max processed | Message persistence | Notes                            |
 | -------------- | ---------------- | ------------------ | ------------------ | ------------- | ------------------- | -------------------------------- |
 | ActiveMQ       | 5 ms             | 2 s                | 25 s               | 570/s         | Disabled            | Disappointing with more messages |
-| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | 3.6K/s        | Disabled            | Good latencies, sub-par throughput with best libraries/examples |
+| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | 3.7K/s        | Disabled            | Good latencies, sub-par throughput with best libraries/examples |
 | Pulsar         | 1 ms             | 3 ms               | 5 ms               | 26K/s         | Disabled            | On-par with Kafka only after disabling persistence |
 | Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | 26K/s         | None                | Sub-ms latency with ~15K msgs/s. Hands-down best results   |
 | Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | 3.5K/s        | None                | Low latencies but not the best throughput       |
