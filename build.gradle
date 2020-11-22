@@ -42,7 +42,7 @@ subprojects {
 
         implementation 'org.springframework.boot:spring-boot-starter-activemq'
         implementation 'org.springframework.amqp:spring-rabbit'
-        implementation 'org.apache.pulsar:pulsar-client:2.6.1'
+        implementation 'org.apache.pulsar:pulsar-client:2.6.2'
         implementation 'io.nats:jnats:2.8.0'
         final natsStarterVersion = '0.4.0'
         implementation "io.nats:nats-spring-boot-starter:$natsStarterVersion"
