@@ -13,7 +13,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import static dev.tomek.benchmarkmq.common.Profiles.COMM_NATS;
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_REDIS;
 import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_REDIS;
 
@@ -21,7 +20,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_REDIS;
 @ActiveProfiles(COMM_REDIS)
 @Testcontainers
 @ContextConfiguration(initializers = {ManufacturerRedisTest.Initializer.class})
-class ManufacturerRedisTest {
+class ManufacturerRedisTest extends BaseIntegrationTest {
     @Container
     private static final GenericContainer<?> CONTAINER_REDIS = new GenericContainer<>(DockerImageName.parse(PROPS_REDIS.image())).withExposedPorts(PROPS_REDIS.port());
 

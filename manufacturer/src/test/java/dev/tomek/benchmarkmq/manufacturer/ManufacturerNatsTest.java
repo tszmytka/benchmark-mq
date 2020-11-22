@@ -20,7 +20,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_NATS;
 @ActiveProfiles(COMM_NATS)
 @Testcontainers
 @ContextConfiguration(initializers = {ManufacturerNatsTest.Initializer.class})
-class ManufacturerNatsTest {
+class ManufacturerNatsTest extends BaseIntegrationTest {
     @Container
     private final static GenericContainer<?> CONTAINER_NATS = new GenericContainer<>(DockerImageName.parse(PROPS_NATS.image()))/*.withExposedPorts(PROPS_NATS.port())*/;
 

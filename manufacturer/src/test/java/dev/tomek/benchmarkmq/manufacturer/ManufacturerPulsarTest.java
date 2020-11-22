@@ -16,7 +16,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_PULSAR;
 @SpringBootTest
 @ActiveProfiles(COMM_PULSAR)
 @Testcontainers
-public class ManufacturerPulsarTest {
+public class ManufacturerPulsarTest extends BaseIntegrationTest {
     @Container
     private static final PulsarContainer CONTAINER_PULSAR = new PulsarContainer(DockerImageName.parse(PROPS_PULSAR.image())).withEnv(PROPS_PULSAR.envVars());
 

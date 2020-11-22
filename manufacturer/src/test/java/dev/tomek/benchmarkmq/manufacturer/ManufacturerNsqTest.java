@@ -8,7 +8,7 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_NSQ;
 
 @SpringBootTest
 @ActiveProfiles(COMM_NSQ)
-public class ManufacturerNsqTest {
+public class ManufacturerNsqTest extends BaseIntegrationTest {
     @Test
     void contextLoads() {
     }

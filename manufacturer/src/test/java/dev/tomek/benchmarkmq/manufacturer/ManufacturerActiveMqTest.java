@@ -19,7 +19,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_ACTIVEMQ;
 @ActiveProfiles(COMM_ACTIVEMQ)
 @Testcontainers
 @ContextConfiguration(initializers = {ManufacturerActiveMqTest.Initializer.class})
-class ManufacturerActiveMqTest {
+class ManufacturerActiveMqTest extends BaseIntegrationTest {
     @Container
     private static final DockerComposeContainer<?> CONTAINER_ACTIVEMQ = new DockerComposeContainer<>(PROPS_ACTIVEMQ.dockerComposeFile())
         .withExposedService(PROPS_ACTIVEMQ.serviceName(), PROPS_ACTIVEMQ.port())

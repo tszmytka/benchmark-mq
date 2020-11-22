@@ -16,7 +16,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_KAFKA;
 @SpringBootTest
 @ActiveProfiles(COMM_KAFKA)
 @Testcontainers
-public class ManufacturerKafkaTest {
+public class ManufacturerKafkaTest extends BaseIntegrationTest {
     @Container
     private static final KafkaContainer CONTAINER_KAFKA = new KafkaContainer(DockerImageName.parse(PROPS_KAFKA.image()));
 

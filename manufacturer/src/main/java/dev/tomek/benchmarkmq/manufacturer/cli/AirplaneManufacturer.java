@@ -23,15 +23,22 @@ public class AirplaneManufacturer implements CommandLineRunner {
         new Airplane(AIRBUS, "A380", System.nanoTime()),
     };
     private int protoPlaneCounter;
+    private ProducingStrategy producingStrategy;
 
     @Override
     public void run(String... args) throws Exception {
         LOGGER.info("Starting Airplane manufacturer");
 
-        final ProducingStrategy producingStrategy = new ProducingStrategy.Smooth(100, 50);
-//        final ProducingStrategy producingStrategy = new ProducingStrategy.Resilience4j(100, 10, rateLimiter);
-//        final ProducingStrategy.Manual producingStrategy = new ProducingStrategy.Manual(100, 10);
+        producingStrategy = new ProducingStrategy.Smooth(100, 50);
+//        producingStrategy = new ProducingStrategy.Resilience4j(100, 10, rateLimiter);
+//        producingStrategy = new ProducingStrategy.Manual(100, 10);
         producingStrategy.startProducing(() -> messenger.send(produceNewAirplane(), Topic.AIRPLANES));
+    }
+
+    public void stopProducing() {
+        if (producingStrategy != null) {
+            producingStrategy.stopProducing();
+        }
     }
 
     private Airplane produceNewAirplane() {

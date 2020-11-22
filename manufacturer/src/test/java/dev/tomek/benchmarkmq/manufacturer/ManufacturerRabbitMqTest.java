@@ -19,7 +19,7 @@ import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_RABBITMQ;
 @ActiveProfiles(COMM_RABBITMQ)
 @Testcontainers
 @ContextConfiguration(initializers = {ManufacturerRabbitMqTest.Initializer.class})
-class ManufacturerRabbitMqTest {
+class ManufacturerRabbitMqTest extends BaseIntegrationTest {
     @Container
     private static final RabbitMQContainer CONTAINER_RABBITMQ = new RabbitMQContainer(PROPS_RABBITMQ.image()).withExposedPorts(PROPS_RABBITMQ.port());
 

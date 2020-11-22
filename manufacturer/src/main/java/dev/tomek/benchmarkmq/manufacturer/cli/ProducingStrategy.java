@@ -12,9 +12,13 @@ import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public interface ProducingStrategy {
     void startProducing(Runnable production);
+
+    void stopProducing();
+
 
     @Log4j2
     @RequiredArgsConstructor
@@ -52,6 +56,12 @@ public interface ProducingStrategy {
         }
 
         @Override
+        public void stopProducing() {
+            EXECUTOR.shutdownNow();
+            limitProduction(0);
+        }
+
+        @Override
         void increaseLimit() {
             super.increaseLimit();
             limitProduction(limitPerSecond);
@@ -61,13 +71,16 @@ public interface ProducingStrategy {
             if (subscription != null) {
                 subscription.dispose();
             }
-            subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limitPerSecond)).subscribe(l -> production.run());
+            if (limitPerSecond > 0) {
+                subscription = Flux.interval(Duration.ofNanos(1_000_000_000 / limitPerSecond)).subscribe(l -> production.run());
+            }
         }
     }
 
 
     class Resilience4j extends BaseStrategy implements ProducingStrategy {
         private final RateLimiter rateLimiter;
+        private final AtomicBoolean shouldProduce = new AtomicBoolean();
 
         public Resilience4j(int limitPerSecond, int limitBump, RateLimiter rateLimiter) {
             super(limitPerSecond, limitBump);
@@ -79,12 +92,17 @@ public interface ProducingStrategy {
         @Override
         public void startProducing(Runnable production) {
             super.startProducing(production);
-            //noinspection InfiniteLoopStatement
-            while (true) {
+            shouldProduce.set(true);
+            while (shouldProduce.get()) {
                 rateLimiter.executeRunnable(production);
                 //noinspection BusyWait
                 Thread.sleep(5);
             }
+        }
+
+        @Override
+        public void stopProducing() {
+            shouldProduce.set(false);
         }
 
         @Override
@@ -96,6 +114,7 @@ public interface ProducingStrategy {
 
 
     class Manual extends BaseStrategy implements ProducingStrategy {
+        private final AtomicBoolean shouldProduce = new AtomicBoolean();
 
         public Manual(int limitPerSecond, int limitBump) {
             super(limitPerSecond, limitBump);
@@ -107,7 +126,8 @@ public interface ProducingStrategy {
             super.startProducing(production);
             int count = 0;
             long t0 = System.currentTimeMillis();
-            while (true) {
+            shouldProduce.set(true);
+            while (shouldProduce.get()) {
                 if (count++ <= limitPerSecond) {
                     production.run();
                     //noinspection BusyWait
@@ -120,6 +140,11 @@ public interface ProducingStrategy {
                     }
                 }
             }
+        }
+
+        @Override
+        public void stopProducing() {
+            shouldProduce.set(false);
         }
     }
 }
