@@ -10,8 +10,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import java.util.Map;
-
 import static dev.tomek.benchmarkmq.common.Profiles.COMM_PULSAR;
 import static dev.tomek.benchmarkmq.common.TestSupport.PROPS_PULSAR;
 

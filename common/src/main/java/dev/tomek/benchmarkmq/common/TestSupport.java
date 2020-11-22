@@ -11,8 +11,9 @@ public class TestSupport {
     public static final ContainerProperties PROPS_REDIS = new ContainerProperties("redis:6.0-alpine", 6379);
     public static final ContainerProperties PROPS_RABBITMQ = new ContainerProperties("rabbitmq:3.8-management-alpine", 5672);
     public static final ContainerProperties PROPS_KAFKA = new ContainerProperties("confluentinc/cp-kafka:6.0.0", 9092);
-    public static final ContainerProperties PROPS_PULSAR = new ContainerProperties("apachepulsar/pulsar:2.6.1", 6650, Map.of("PULSAR_MEM", "-Xmx128m"));
+    public static final ContainerProperties PROPS_PULSAR = new ContainerProperties("apachepulsar/pulsar:2.6.2", 6650, Map.of("PULSAR_MEM", "-Xmx128m"));
     public static final ServiceProperties PROPS_ACTIVEMQ;
+    public static final ServiceProperties PROPS_NSQ;
 
     static {
         File dcActiveMqFile = new File("./../docker-compose.activemq.yml");
@@ -22,6 +23,14 @@ public class TestSupport {
             throw new RuntimeException(e);
         }
         PROPS_ACTIVEMQ = new ServiceProperties(dcActiveMqFile, "activemq", 61616);
+
+        File dcNsqFile = new File("./../docker-compose.nsq.yml");
+        try {
+            dcNsqFile = dcNsqFile.getCanonicalFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        PROPS_NSQ = new ServiceProperties(dcNsqFile, "nsqlookupd", 4151);
     }
 
     private TestSupport() {
