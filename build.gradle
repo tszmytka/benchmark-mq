@@ -15,7 +15,7 @@ subprojects {
 
     sourceCompatibility = 15
     tasks.withType(JavaCompile).each {
-        it.options.compilerArgs.addAll('--enable-preview', '-Xlint:preview', 'XX:+ShowCodeDetailsInExceptionMessages')
+        it.options.compilerArgs.addAll('--enable-preview', '-Xlint:preview', '-XX:+ShowCodeDetailsInExceptionMessages')
     }
 
     configurations {
