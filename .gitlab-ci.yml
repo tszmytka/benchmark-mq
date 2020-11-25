@@ -1,15 +1,15 @@
 image: openjdk:15-alpine
 
 services:
-  - docker:19-dind
+  - docker:17-dind
 
 variables:
   # Tell Docker where to create certificates
   DOCKER_TLS_CERTDIR: "/certs"
   # Instruct Testcontainers where docker host and tls cert path is
   DOCKER_HOST: "tcp://docker:2375"
-  DOCKER_TLS_VERIFY: 1
-  DOCKER_CERT_PATH: "/certs"
+#  DOCKER_TLS_VERIFY: 1
+#  DOCKER_CERT_PATH: "/certs"
   # all stages on separate containers anyway
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
