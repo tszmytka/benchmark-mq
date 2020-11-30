@@ -29,12 +29,12 @@ A benchmark application comparing message queue implementations
 ## Results
 | Transport      | Latency min      | Latency mean       | Latency max        | Max processed | Message persistence | Notes                            |
 | -------------- | ---------------- | ------------------ | ------------------ | ------------- | ------------------- | -------------------------------- |
-| ActiveMQ       | 5 ms             | 2 s                | 25 s               | 570/s         | Disabled            | Disappointing with more messages |
-| RabbitMQ       | 1 ms             | 2 ms               | 15 ms              | 3.7K/s        | Disabled            | Good latencies, sub-par throughput with best libraries/examples |
-| Pulsar         | 1 ms             | 3 ms               | 5 ms               | 26K/s         | Disabled            | On-par with Kafka only after disabling persistence |
-| Nats           | 0.6 ms           | 0.6 ms             | 1.1 ms             | 26K/s         | None                | Sub-ms latency with ~15K msgs/s. Hands-down best results   |
+| :chart_with_downwards_trend: ActiveMQ | 5 ms             | 2 s                | 25 s               | 570/s         | Disabled            | Disappointing with more than a few messages |
+| :+1: RabbitMQ  | 1 ms             | 2 ms               | 15 ms              | 3.7K/s        | Disabled            | Good latencies, sub-par throughput but best libraries support/examples |
+| :three: Pulsar | 1 ms             | 3 ms               | 5 ms               | 26K/s         | Disabled            | On-par with Kafka only after disabling persistence |
+| :one: Nats     | 0.6 ms           | 0.6 ms             | 1.1 ms             | 26K/s         | None                | Sub-ms latency with ~15K msgs/s. Hands-down best results   |
 | Redis          | 0.4 ms           | 0.6 ms             | 25 ms              | 3.5K/s        | None                | Low latencies but not the best throughput       |
-| Kafka          | 2 ms             | 3 ms               | 10 ms              | 26K/s         | Can't disable       | All-round great despite persisting all messages |
+| :two: Kafka    | 2 ms             | 3 ms               | 10 ms              | 26K/s         | Can't disable       | All-round great despite persisting all messages |
 | Nsq            | 11 ms            | 26 ms              | 125 ms             | 3.5K/s        | None                | Outsider. Better latencies *after* 3000 msg/s   |
 
 
