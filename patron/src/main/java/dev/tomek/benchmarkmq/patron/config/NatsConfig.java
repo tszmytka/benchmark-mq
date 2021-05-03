@@ -9,8 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import static dev.tomek.benchmarkmq.common.Profiles.COMM_NATS;
-import static dev.tomek.benchmarkmq.common.Profiles.USE_SPRING_CLOUD_STREAM;
+import static dev.tomek.benchmarkmq.common.Profiles.*;
 
 @Configuration
 @Profile(COMM_NATS)
@@ -22,7 +21,25 @@ public class NatsConfig {
 
     @Profile("!" + USE_SPRING_CLOUD_STREAM)
     @Bean
-    public Subscription subscriptionAirplanes(Dispatcher dispatcher, NatsConsumer natsConsumer) {
-        return dispatcher.subscribe(Topic.AIRPLANES.toString(), natsConsumer);
+    public Subscription subscriptionAirplanes(Dispatcher dispatcher, NatsConsumer natsConsumer, String topicPrefix) {
+        return dispatcher.subscribe(topicPrefix + Topic.AIRPLANES, natsConsumer);
+    }
+
+    @Configuration
+    @Profile("!" + NATS_PERSISTENCE)
+    static class TopicConfigNoPersistence {
+        @Bean
+        public String topicPrefix() {
+            return "";
+        }
+    }
+
+    @Configuration
+    @Profile(NATS_PERSISTENCE)
+    static class TopicConfigPersistence {
+        @Bean
+        public String topicPrefix() {
+            return "Persisted_";
+        }
     }
 }
