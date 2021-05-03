@@ -12,6 +12,6 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_NSQ;
 public class NsqConfig {
     @Bean
     public Publisher publisher() {
-        return new Publisher("dockerhost");
+        return new Publisher("localhost");
     }
 }

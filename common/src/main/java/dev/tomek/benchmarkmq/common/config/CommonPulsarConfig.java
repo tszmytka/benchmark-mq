@@ -10,7 +10,7 @@ public abstract class CommonPulsarConfig {
 
     @Bean
     public String pulsarServiceUrl() {
-        return "pulsar://dockerhost:6650";
+        return "pulsar://localhost:6650";
     }
 
     @Bean

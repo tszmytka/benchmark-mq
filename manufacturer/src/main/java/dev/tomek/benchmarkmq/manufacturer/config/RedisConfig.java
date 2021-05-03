@@ -15,7 +15,7 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_REDIS;
 public class RedisConfig extends CommonRedisConfig {
     // example manually creating the connection
     public LettuceConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("dockerhost", 6379));
+        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
     }
 
     // you could also use a template

@@ -10,7 +10,7 @@ import javax.jms.ConnectionFactory;
 public abstract class CommonActiveMqConfig {
     // setting up connection manually
     public ConnectionFactory connectionFactory() {
-        final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://dockerhost:61616");
+        final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         connectionFactory.setUseAsyncSend(true);
         return new CachingConnectionFactory(connectionFactory);
     }

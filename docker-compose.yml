@@ -5,7 +5,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - /benchmark-mq/provision/prometheus/etc/prometheus:/etc/prometheus
+      - ./provision/prometheus/etc/prometheus:/etc/prometheus
 
   grafana.benchmark-mq:
     image: grafana/grafana:7.3.3
@@ -13,7 +13,7 @@ services:
       - "3000:3000"
     volumes:
       - volume-grafana-benchmark-mq:/var/lib/grafana
-      - /benchmark-mq/provision/grafana/etc/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./provision/grafana/etc/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
 
 volumes:
   volume-grafana-benchmark-mq:

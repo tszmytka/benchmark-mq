@@ -15,7 +15,7 @@ import static dev.tomek.benchmarkmq.common.Profiles.COMM_RABBITMQ;
 public class RabbitMqConfig extends CommonRabbitMqConfig {
     // example manually creating connection
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("dockerhost", 5672);
+        return new CachingConnectionFactory("localhost", 5672);
     }
 
     @Bean
