@@ -12,6 +12,8 @@ variables:
 #  DOCKER_CERT_PATH: "/certs"
   # all stages on separate containers anyway
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  # Needed for installing docker-compose
+  CRYPTOGRAPHY_DONT_BUILD_RUST: 1
 
 stages:
   - build
