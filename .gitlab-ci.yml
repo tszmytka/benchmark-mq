@@ -8,8 +8,8 @@ variables:
   DOCKER_TLS_CERTDIR: "/certs"
   # Instruct Testcontainers where docker host and tls cert path is
   DOCKER_HOST: "tcp://docker:2375"
-#  DOCKER_TLS_VERIFY: 1
-#  DOCKER_CERT_PATH: "/certs"
+  #  DOCKER_TLS_VERIFY: 1
+  #  DOCKER_CERT_PATH: "/certs"
   # all stages on separate containers anyway
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   # Needed for installing docker-compose
@@ -39,7 +39,7 @@ Test:
   stage: test
   before_script:
     - apk add --no-cache py-pip python3-dev libffi-dev openssl-dev gcc libc-dev make
-    - pip install docker-compose
+    - pip install docker-compose=1.27.4
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
     - './gradlew test'
