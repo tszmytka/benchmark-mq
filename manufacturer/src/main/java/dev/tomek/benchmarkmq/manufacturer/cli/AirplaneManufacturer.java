@@ -3,7 +3,6 @@ package dev.tomek.benchmarkmq.manufacturer.cli;
 import dev.tomek.benchmarkmq.common.Airplane;
 import dev.tomek.benchmarkmq.common.Topic;
 import dev.tomek.benchmarkmq.manufacturer.comm.Messenger;
-import io.github.resilience4j.ratelimiter.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
@@ -15,12 +14,12 @@ import static dev.tomek.benchmarkmq.common.Airplane.Maker.*;
 @Component
 @RequiredArgsConstructor
 public class AirplaneManufacturer implements CommandLineRunner {
-    private final Messenger messenger;
-    private final Airplane[] PROTO_AIRPLANES = {
+    private static final Airplane[] PROTO_AIRPLANES = {
         new Airplane(NORTH_AMERICAN_AVIATION, "P-51 Mustang", System.nanoTime()),
         new Airplane(BOEING, "777", System.nanoTime()),
         new Airplane(AIRBUS, "A380", System.nanoTime()),
     };
+    private final Messenger messenger;
     private int protoPlaneCounter;
     private ProducingStrategy producingStrategy;
 

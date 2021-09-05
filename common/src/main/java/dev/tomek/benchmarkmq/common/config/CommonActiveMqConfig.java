@@ -8,7 +8,9 @@ import org.springframework.jms.connection.CachingConnectionFactory;
 import javax.jms.ConnectionFactory;
 
 public abstract class CommonActiveMqConfig {
-    // setting up connection manually
+    /**
+     * Setting up connection manually
+     */
     public ConnectionFactory connectionFactory() {
         final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         connectionFactory.setUseAsyncSend(true);
@@ -16,6 +18,7 @@ public abstract class CommonActiveMqConfig {
     }
 
     @Bean
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public ActiveMQConnectionFactoryCustomizer activeMQConnectionFactoryCustomizer() {
         return factory -> factory.setUseAsyncSend(true);
     }

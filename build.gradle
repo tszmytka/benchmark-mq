@@ -3,8 +3,7 @@ plugins {
     id 'nebula.release' version '15.3.0'
     id 'org.springframework.boot' version '2.5.4' apply false
     id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
-    id 'com.github.spotbugs' version '4.5.1' apply false
-//    todo checkstyle
+    id 'com.github.spotbugs' version '4.7.3' apply false
 }
 
 group = 'dev.tomek'
@@ -14,8 +13,9 @@ subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'com.github.spotbugs'
+    apply plugin: 'checkstyle'
 
-    sourceCompatibility = 15
+    sourceCompatibility = 16
     tasks.withType(JavaCompile).each {
         it.options.compilerArgs.addAll('--enable-preview', '-Xlint:preview')
     }
@@ -103,5 +103,9 @@ subprojects {
         reports {
             html.enabled = true
         }
+    }
+
+    checkstyle {
+        toolVersion = '9.0'
     }
 }

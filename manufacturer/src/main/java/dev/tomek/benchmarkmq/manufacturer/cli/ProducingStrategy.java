@@ -1,8 +1,6 @@
 package dev.tomek.benchmarkmq.manufacturer.cli;
 
 import io.github.resilience4j.ratelimiter.RateLimiter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import reactor.core.Disposable;
@@ -21,13 +19,16 @@ public interface ProducingStrategy {
 
 
     @Log4j2
-    @RequiredArgsConstructor
     abstract class BaseStrategy implements ProducingStrategy {
         final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-        @NonNull
         int limitPerSecond;
         final int limitBump;
         Runnable production;
+
+        public BaseStrategy(int limitPerSecond, int limitBump) {
+            this.limitPerSecond = limitPerSecond;
+            this.limitBump = limitBump;
+        }
 
         void increaseLimit() {
             limitPerSecond += limitBump;
@@ -78,6 +79,7 @@ public interface ProducingStrategy {
     }
 
 
+    @SuppressWarnings("unused")
     class Resilience4j extends BaseStrategy implements ProducingStrategy {
         private final RateLimiter rateLimiter;
         private final AtomicBoolean shouldProduce = new AtomicBoolean();
@@ -114,6 +116,7 @@ public interface ProducingStrategy {
     }
 
 
+    @SuppressWarnings("unused")
     class Manual extends BaseStrategy implements ProducingStrategy {
         private final AtomicBoolean shouldProduce = new AtomicBoolean();
 
