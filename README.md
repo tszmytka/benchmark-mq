@@ -74,7 +74,7 @@ Additional runs have been carried out while utilizing [Spring Cloud Stream](http
 ![Pulsar message performance chart](doc/img/pulsar.png "Pulsar message performance chart")
 
 - Very heavy image. Broker requires (by default) 2GB RAM to even boot up (!?!)
-- Driver uses a baked-in, old version of Jackson (impossible to override it) so you have to serialize by han
+- Driver uses a baked-in, old version of Jackson (impossible to override it) so you have to serialize by hand
 - Rides the CPU from t=0
 - Consistently keeps latency in check
 

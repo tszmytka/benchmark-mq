@@ -1,8 +1,8 @@
 plugins {
     id 'idea'
     id 'nebula.release' version '15.3.0'
-    id 'org.springframework.boot' version '2.4.0-M4' apply false
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE' apply false
+    id 'org.springframework.boot' version '2.5.4' apply false
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
     id 'com.github.spotbugs' version '4.5.1' apply false
 //    todo checkstyle
 }
@@ -34,6 +34,9 @@ subprojects {
 
     ext {
         springCloudVersion = 'Hoxton.SR8'
+        lombokVersion = '1.18.20'
+        jacksonVersion = '2.12.5'
+        natsStarterVersion = '0.4.0'
     }
 
     dependencies {
@@ -41,7 +44,6 @@ subprojects {
         implementation 'org.springframework.amqp:spring-rabbit'
         implementation 'org.apache.pulsar:pulsar-client:2.6.2'
         implementation 'io.nats:jnats:2.8.0'
-        final natsStarterVersion = '0.4.0'
         implementation "io.nats:nats-spring-boot-starter:$natsStarterVersion"
         implementation 'org.springframework.boot:spring-boot-starter-data-redis'
         implementation 'com.sproutsocial:nsq-j:1.0'
@@ -51,12 +53,10 @@ subprojects {
 //        implementation 'org.springframework.cloud:spring-cloud-stream'
 //        implementation "io.nats:nats-spring-cloud-stream-binder:$natsStarterVersion"
 
-        final def lombokVersion = '1.18.14'
         compileOnly "org.projectlombok:lombok:$lombokVersion"
         annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
         // for serializing records
-        final jacksonVersion = '2.12.0-rc1'
         implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
         implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
